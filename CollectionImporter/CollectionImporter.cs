@@ -23,6 +23,15 @@ namespace CollectionImporter
             Console.WriteLine("=== osu! Collection Importer ===");
             Console.WriteLine();
             
+            // 引数処理
+            string? customBackupPath = null;
+            if (args.Length > 0)
+            {
+                // 引数がある場合は最初の引数をバックアップ先として使用
+                customBackupPath = args[0];
+                Console.WriteLine($"Custom backup path: {customBackupPath}");
+            }
+            
             // ライセンス情報表示
             ShowLicenseInfo();
             
@@ -54,11 +63,28 @@ namespace CollectionImporter
             string collectionDbPath = Path.Combine(osuFolder, "collection.db");
             string osuDbPath = Path.Combine(osuFolder, "osu!.db");
             
-            // バックアップフォルダの作成
-            string backupFolder = Path.Combine(osuFolder, "backup");
+            // バックアップフォルダの決定と作成
+            string backupFolder;
+            if (!string.IsNullOrEmpty(customBackupPath))
+            {
+                // 引数でバックアップ先が指定された場合
+                backupFolder = customBackupPath;
+            }
+            else
+            {
+                // デフォルト: 実行ファイルと同階層のbackupフォルダ
+                string? exeDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                if (exeDirectory == null)
+                {
+                    throw new InvalidOperationException("実行ファイルのディレクトリを取得できませんでした。");
+                }
+                backupFolder = Path.Combine(exeDirectory, "backup");
+            }
+            
             if (!Directory.Exists(backupFolder))
             {
                 Directory.CreateDirectory(backupFolder);
+                Console.WriteLine($"Created backup folder: {backupFolder}");
             }
             
             try
@@ -77,26 +103,77 @@ namespace CollectionImporter
                 var validMd5Hashes = new HashSet<string>(osuDb.Beatmaps.Select(b => b.MD5Hash).Where(h => !string.IsNullOrEmpty(h)));
                 Console.WriteLine($"Loaded {validMd5Hashes.Count} valid MD5 hashes");
                 
-                // JSONファイルからコレクションを読み込み
-                var collections = await LoadCollectionsFromJson(inputFolder, validMd5Hashes);
+                // 既存のcollection.dbからコレクションを読み込み
+                var existingCollections = new List<Collection>();
+                if (File.Exists(collectionDbPath))
+                {
+                    try
+                    {
+                        var existingDb = DatabaseDecoder.DecodeCollection(collectionDbPath);
+                        // OsuParsers.Database.Objects.CollectionからプロジェクトのCollectionに変換
+                        foreach (var osuCollection in existingDb.Collections)
+                        {
+                            var collection = new Collection
+                            {
+                                Name = osuCollection.Name,
+                                MD5Hashes = osuCollection.MD5Hashes.ToList()
+                            };
+                            existingCollections.Add(collection);
+                        }
+                        Console.WriteLine($"Loaded {existingCollections.Count} existing collections from collection.db");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Warning: Could not read existing collection.db: {ex.Message}");
+                    }
+                }
                 
-                if (!collections.Any())
+                // JSONファイルからコレクションを読み込み
+                var newCollections = await LoadCollectionsFromJson(inputFolder, validMd5Hashes);
+                
+                if (!newCollections.Any())
                 {
                     Console.WriteLine("No valid collections found in JSON files.");
                     return;
                 }
                 
-                Console.WriteLine($"Loaded {collections.Count} collections from JSON files");
+                Console.WriteLine($"Loaded {newCollections.Count} collections from JSON files");
+                
+                // 既存のコレクションと新しいコレクションを結合
+                var allCollections = new List<Collection>(existingCollections);
+                foreach (var newCollection in newCollections)
+                {
+                    // 同名のコレクションがある場合は上書き
+                    var existingIndex = allCollections.FindIndex(c => c.Name == newCollection.Name);
+                    if (existingIndex >= 0)
+                    {
+                        allCollections[existingIndex] = newCollection;
+                        Console.WriteLine($"Updated existing collection: {newCollection.Name}");
+                    }
+                    else
+                    {
+                        allCollections.Add(newCollection);
+                        Console.WriteLine($"Added new collection: {newCollection.Name}");
+                    }
+                }
                 
                 // collection.dbを作成
-                await WriteCollectionDb(collections, collectionDbPath);
+                await WriteCollectionDb(allCollections, collectionDbPath);
                 
                 Console.WriteLine($"\nImport completed! Collection database updated: {collectionDbPath}");
-                Console.WriteLine($"Imported {collections.Count} collections");
+                Console.WriteLine($"Total collections in database: {allCollections.Count}");
+                Console.WriteLine($"Imported from JSON: {newCollections.Count} collections");
                 
-                foreach (var collection in collections)
+                foreach (var collection in newCollections)
                 {
                     Console.WriteLine($"  - {collection.Name}: {collection.MD5Hashes.Count} beatmaps");
+                }
+                
+                // 引数なしの場合のみEnterキー待機
+                if (args.Length == 0)
+                {
+                    Console.WriteLine("\nPress Enter to exit...");
+                    Console.ReadLine();
                 }
                 
             }
@@ -290,7 +367,7 @@ namespace CollectionImporter
             {
                 foreach (var beatmap in beatmapsElement.EnumerateArray())
                 {
-                    if (beatmap.TryGetProperty("md5_hash", out var md5Element))
+                    if (beatmap.TryGetProperty("md5", out var md5Element))
                     {
                         var md5Hash = md5Element.GetString();
                         if (!string.IsNullOrEmpty(md5Hash) && validMd5Hashes.Contains(md5Hash))

@@ -3,9 +3,9 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>CollectionConverter</RootNamespace>
-    <AssemblyName>CollectionConverter</AssemblyName>
-    <StartupObject>CollectionConverter.Program</StartupObject>
+    <RootNamespace>CollectionExporter</RootNamespace>
+    <AssemblyName>CollectionExporter</AssemblyName>
+    <StartupObject>CollectionExporter.Program</StartupObject>
     <Nullable>enable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <WarningLevel>5</WarningLevel>

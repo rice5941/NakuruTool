@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using OsuParsers.Database;
 using OsuParsers.Decoders;
 
-namespace CollectionConverter
+namespace CollectionExporter
 {
     /// <summary>
     /// osu! collection.dbファイルを読み込み、JSONフォーマットに変換するコンソールアプリケーション
@@ -26,7 +26,7 @@ namespace CollectionConverter
             
             try
             {
-                Console.WriteLine("=== osu! Collection Converter ===");
+                Console.WriteLine("=== osu! Collection Exporter ===");
                 Console.WriteLine();
                 
                 // ライセンス情報表示
@@ -175,10 +175,25 @@ namespace CollectionConverter
                     Console.WriteLine($"  - {Path.GetFileName(path)}");
                 }
                 Console.WriteLine($"総処理時間: {totalStopwatch.ElapsedMilliseconds:N0}ms ({totalStopwatch.Elapsed.TotalSeconds:F2}秒)");
+                
+                // 引数なしの場合のみEnterキー待機
+                if (args.Length == 0)
+                {
+                    Console.WriteLine("\nPress Enter to exit...");
+                    Console.ReadLine();
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"エラーが発生しました: {ex.Message}");
+                
+                // 引数なしの場合のみEnterキー待機
+                if (args.Length == 0)
+                {
+                    Console.WriteLine("Press Enter to exit...");
+                    Console.ReadLine();
+                }
+                
                 Environment.Exit(1);
             }
         }

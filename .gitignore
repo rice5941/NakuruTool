@@ -1,0 +1,45 @@
+# .NET Build Outputs
+bin/
+obj/
+
+# Visual Studio
+*.user
+*.suo
+*.cache
+.vs/
+
+# Tools Output Folders
+*/output/
+*/backup/
+modules/
+
+# Archives and Temporary Files
+Tools/archive_*
+ClaudeCodeDoc/作業指示履歴/*.md
+!ClaudeCodeDoc/作業指示履歴/README.md
+ClaudeCodeDoc/作業指示履歴/counter.txt
+ClaudeCodeDoc/作業指示履歴/index.md
+
+# Database Files (sample/test data)
+参考ファイル/osu/
+参考ファイル/osu2/
+
+# Application Config Override
+*/config.json.local
+
+# Logs
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE Files
+.vscode/
+.idea/
+
+# Temporary Files
+*.tmp
+*.bak
+*~

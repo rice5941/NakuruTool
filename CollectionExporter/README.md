@@ -1,4 +1,4 @@
-# osu! Collection Converter
+# osu! Collection Exporter
 
 osu!のcollection.dbファイルを読み込み、JSON形式に変換するコンソールアプリケーションです。
 
@@ -161,9 +161,9 @@ dotnet run "7K_Ranked" "LN本質" "とても良い譜面"  # → 各ファイル
 
 **ファイル構成:**
 ```
-CollectionConverter/
-├── CollectionConverter.cs       # メインロジック
-├── CollectionConverter.csproj   # プロジェクト設定
+CollectionExporter/
+├── CollectionExporter.cs        # メインロジック
+├── CollectionExporter.csproj    # プロジェクト設定
 ├── config.json                  # 設定ファイル
 └── README.md                    # ドキュメント
 ```

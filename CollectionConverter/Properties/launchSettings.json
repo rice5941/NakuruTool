@@ -1,0 +1,29 @@
+{
+  "profiles": {
+    "CollectionConverter (全コレクション)": {
+      "commandName": "Project",
+      "commandLineArgs": "",
+      "workingDirectory": "$(ProjectDir)"
+    },
+    "CollectionConverter (引数指定)": {
+      "commandName": "Project",
+      "commandLineArgs": "\"7K_Ranked\"",
+      "workingDirectory": "$(ProjectDir)"
+    },
+    "CollectionConverter (config.json設定)": {
+      "commandName": "Project",
+      "commandLineArgs": "",
+      "workingDirectory": "$(ProjectDir)"
+    },
+    "CollectionConverter (部分一致テスト)": {
+      "commandName": "Project", 
+      "commandLineArgs": "\"LN\"",
+      "workingDirectory": "$(ProjectDir)"
+    },
+    "CollectionConverter (複数引数指定)": {
+      "commandName": "Project",
+      "commandLineArgs": "\"7K_Ranked\" \"LN本質\" \"とても良い譜面\"",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}

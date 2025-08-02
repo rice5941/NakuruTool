@@ -6,7 +6,7 @@
     xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
     xmlns:v="clr-namespace:NakuruTool.Views"
     xmlns:vm="clr-namespace:NakuruTool.ViewModels"
-    Title="MainWindow"
+    Title="{DynamicResource AppTitle}"
     Width="525"
     Height="350">
 
@@ -27,7 +27,69 @@
 
         <!--  If you make user choose 'OK or Cancel' closing Window, then please use Window Close cancel Behavior.  -->
 
+        <!-- ダイアログ表示用のメッセージトリガー -->
+        <l:InteractionMessageTrigger MessageKey="ShowSettings" Messenger="{Binding Messenger}">
+            <l:TransitionInteractionMessageAction WindowType="{x:Type v:SettingsDialog}" Mode="Modal" />
+        </l:InteractionMessageTrigger>
+
     </behaviors:Interaction.Triggers>
 
-    <Grid />
+    <Grid Background="{DynamicResource WindowBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- ヘッダー部分 -->
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>    <!-- アプリタイトル -->
+                <ColumnDefinition Width="*"/>       <!-- スペース -->
+                <ColumnDefinition Width="Auto"/>    <!-- 言語選択 -->
+                <ColumnDefinition Width="Auto"/>    <!-- 設定ボタン -->
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="0"
+                       Text="{DynamicResource AppTitle}" 
+                       FontSize="18" 
+                       FontWeight="Bold" 
+                       Foreground="{DynamicResource TextForeground}"
+                       VerticalAlignment="Center"/>
+            
+            <ComboBox Grid.Column="2"
+                      ItemsSource="{Binding AvailableLanguages}"
+                      SelectedValue="{Binding SelectedLanguage}"
+                      SelectedValuePath="Code"
+                      DisplayMemberPath="DisplayName"
+                      Style="{DynamicResource ThemedComboBoxStyle}"
+                      ItemContainerStyle="{DynamicResource ThemedComboBoxItemStyle}"
+                      MinWidth="120"
+                      MaxWidth="150"
+                      FontSize="12"
+                      Height="28"
+                      VerticalAlignment="Center"
+                      Margin="0,0,10,0"/>
+            
+            <Button Grid.Column="3"
+                    Content="{DynamicResource Settings}" 
+                    Command="{Binding ShowSettingsCommand}"
+                    Background="{DynamicResource ButtonBackground}"
+                    Foreground="{DynamicResource ButtonForeground}"
+                    BorderBrush="{DynamicResource ButtonBorder}"
+                    Padding="10,5"
+                    MinWidth="80"
+                    VerticalAlignment="Center"/>
+        </Grid>
+        
+        <!-- メインコンテンツ部分 -->
+        <Grid Grid.Row="1" Margin="10">
+            <TextBlock Text="{DynamicResource PrototypeText}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="14"
+                       Foreground="{DynamicResource TextForeground}"
+                       TextWrapping="Wrap"
+                       MaxWidth="400"/>
+        </Grid>
+    </Grid>
 </Window>

@@ -1,0 +1,99 @@
+﻿<Window
+    x:Class="NakuruTool.Views.SettingsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+    xmlns:v="clr-namespace:NakuruTool.Views"
+    xmlns:vm="clr-namespace:NakuruTool.ViewModels"
+    Title="{DynamicResource Settings}"
+    Width="450"
+    Height="380"
+    WindowStartupLocation="CenterOwner"
+    ResizeMode="NoResize"
+    Background="{DynamicResource WindowBackground}">
+
+    <Window.DataContext>
+        <vm:SettingsDialogViewModel />
+    </Window.DataContext>
+
+    <behaviors:Interaction.Triggers>
+        <behaviors:EventTrigger EventName="ContentRendered">
+            <l:LivetCallMethodAction MethodName="Initialize" MethodTarget="{Binding}" />
+        </behaviors:EventTrigger>
+
+        <behaviors:EventTrigger EventName="Closed">
+            <l:DataContextDisposeAction />
+        </behaviors:EventTrigger>
+
+        <l:InteractionMessageTrigger MessageKey="Close" Messenger="{Binding Messenger}">
+            <l:WindowInteractionMessageAction />
+        </l:InteractionMessageTrigger>
+    </behaviors:Interaction.Triggers>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ヘッダー -->
+        <TextBlock Grid.Row="0" 
+                   Text="{DynamicResource SettingsTitle}" 
+                   FontSize="18" 
+                   FontWeight="Bold" 
+                   Foreground="{DynamicResource TextForeground}"
+                   Margin="0,0,0,20"/>
+
+        <!-- 設定項目 -->
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <GroupBox Header="{DynamicResource ThemeSettings}" 
+                      Foreground="{DynamicResource TextForeground}"
+                      BorderBrush="{DynamicResource BorderBrush}"
+                      Margin="0,0,0,15">
+                <StackPanel Orientation="Vertical" Margin="10">
+                    <RadioButton Content="{DynamicResource LightTheme}" 
+                                 IsChecked="{Binding IsDarkTheme, Converter={StaticResource BooleanInverseConverter}}"
+                                 Foreground="{DynamicResource TextForeground}"
+                                 Margin="0,5"/>
+                    <RadioButton Content="{DynamicResource DarkTheme}" 
+                                 IsChecked="{Binding IsDarkTheme}"
+                                 Foreground="{DynamicResource TextForeground}"
+                                 Margin="0,5"/>
+                </StackPanel>
+            </GroupBox>
+
+        </StackPanel>
+
+        <!-- ボタン -->
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right"
+                    Margin="0,20,0,0">
+            <Button Content="{DynamicResource Apply}"
+                    Command="{Binding ApplyCommand}"
+                    Background="{DynamicResource ButtonBackground}"
+                    Foreground="{DynamicResource ButtonForeground}"
+                    BorderBrush="{DynamicResource ButtonBorder}"
+                    Padding="15,5"
+                    MinWidth="100"
+                    Margin="0,0,10,0"/>
+            <Button Content="{DynamicResource OK}"
+                    Command="{Binding OkCommand}"
+                    Background="{DynamicResource ButtonBackground}"
+                    Foreground="{DynamicResource ButtonForeground}"
+                    BorderBrush="{DynamicResource ButtonBorder}"
+                    Padding="15,5"
+                    MinWidth="100"
+                    Margin="0,0,10,0"/>
+            <Button Content="{DynamicResource Cancel}"
+                    Command="{Binding CancelCommand}"
+                    Background="{DynamicResource ButtonBackground}"
+                    Foreground="{DynamicResource ButtonForeground}"
+                    BorderBrush="{DynamicResource ButtonBorder}"
+                    Padding="15,5"
+                    MinWidth="100"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,9 +1,18 @@
 ﻿<Application x:Class="NakuruTool.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:NakuruTool.Converters"
              StartupUri="Views\MainWindow.xaml"
              Startup="Application_Startup">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- 初期テーマ（ライトテーマ）を設定 -->
+                <ResourceDictionary Source="Themes/LightTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <!-- Converters -->
+            <x:Static x:Key="BooleanInverseConverter" Member="converters:CommonConverter.BooleanInverse"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

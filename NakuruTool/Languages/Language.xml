@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Languages>
+  <!-- アプリケーション設定 -->
+  <AppTitle>
+    <ja>NakuruTool</ja>
+    <en>NakuruTool</en>
+    <zh>NakuruTool</zh>
+    <ko>NakuruTool</ko>
+    <tl>NakuruTool</tl>
+    <th>NakuruTool</th>
+    <vi>NakuruTool</vi>
+    <de>NakuruTool</de>
+    <fr>NakuruTool</fr>
+    <es>NakuruTool</es>
+  </AppTitle>
+
+  <Settings>
+    <ja>設定</ja>
+    <en>Settings</en>
+    <zh>设置</zh>
+    <ko>설정</ko>
+    <tl>Mga Setting</tl>
+    <th>การตั้งค่า</th>
+    <vi>Cài đặt</vi>
+    <de>Einstellungen</de>
+    <fr>Paramètres</fr>
+    <es>Configuración</es>
+  </Settings>
+
+  <SettingsTitle>
+    <ja>NakuruTool 設定</ja>
+    <en>NakuruTool Settings</en>
+    <zh>NakuruTool 设置</zh>
+    <ko>NakuruTool 설정</ko>
+    <tl>NakuruTool Settings</tl>
+    <th>การตั้งค่า NakuruTool</th>
+    <vi>Cài đặt NakuruTool</vi>
+    <de>NakuruTool Einstellungen</de>
+    <fr>Paramètres NakuruTool</fr>
+    <es>Configuración de NakuruTool</es>
+  </SettingsTitle>
+
+  <!-- テーマ設定 -->
+  <ThemeSettings>
+    <ja>テーマ設定</ja>
+    <en>Theme Settings</en>
+    <zh>主题设置</zh>
+    <ko>테마 설정</ko>
+    <tl>Mga Setting ng Tema</tl>
+    <th>การตั้งค่าธีม</th>
+    <vi>Cài đặt giao diện</vi>
+    <de>Theme-Einstellungen</de>
+    <fr>Paramètres de thème</fr>
+    <es>Configuración de tema</es>
+  </ThemeSettings>
+
+  <LightTheme>
+    <ja>ライトテーマ</ja>
+    <en>Light Theme</en>
+    <zh>浅色主题</zh>
+    <ko>라이트 테마</ko>
+    <tl>Light Theme</tl>
+    <th>ธีมสว่าง</th>
+    <vi>Giao diện sáng</vi>
+    <de>Heller Modus</de>
+    <fr>Thème clair</fr>
+    <es>Tema claro</es>
+  </LightTheme>
+
+  <DarkTheme>
+    <ja>ダークテーマ</ja>
+    <en>Dark Theme</en>
+    <zh>深色主题</zh>
+    <ko>다크 테마</ko>
+    <tl>Dark Theme</tl>
+    <th>ธีมมืด</th>
+    <vi>Giao diện tối</vi>
+    <de>Dunkler Modus</de>
+    <fr>Thème sombre</fr>
+    <es>Tema oscuro</es>
+  </DarkTheme>
+
+  <!-- 言語設定 -->
+  <LanguageSettings>
+    <ja>言語設定</ja>
+    <en>Language Settings</en>
+    <zh>语言设置</zh>
+    <ko>언어 설정</ko>
+    <tl>Mga Setting ng Wika</tl>
+    <th>การตั้งค่าภาษา</th>
+    <vi>Cài đặt ngôn ngữ</vi>
+    <de>Spracheinstellungen</de>
+    <fr>Paramètres de langue</fr>
+    <es>Configuración de idioma</es>
+  </LanguageSettings>
+
+  <!-- ボタン -->
+  <Apply>
+    <ja>適用</ja>
+    <en>Apply</en>
+    <zh>应用</zh>
+    <ko>적용</ko>
+    <tl>I-apply</tl>
+    <th>นำไปใช้</th>
+    <vi>Áp dụng</vi>
+    <de>Anwenden</de>
+    <fr>Appliquer</fr>
+    <es>Aplicar</es>
+  </Apply>
+
+  <OK>
+    <ja>OK</ja>
+    <en>OK</en>
+    <zh>确定</zh>
+    <ko>확인</ko>
+    <tl>OK</tl>
+    <th>ตกลง</th>
+    <vi>OK</vi>
+    <de>OK</de>
+    <fr>OK</fr>
+    <es>OK</es>
+  </OK>
+
+  <Cancel>
+    <ja>キャンセル</ja>
+    <en>Cancel</en>
+    <zh>取消</zh>
+    <ko>취소</ko>
+    <tl>Cancel</tl>
+    <th>ยกเลิก</th>
+    <vi>Hủy</vi>
+    <de>Abbrechen</de>
+    <fr>Annuler</fr>
+    <es>Cancelar</es>
+  </Cancel>
+
+  <!-- メインコンテンツ -->
+  <PrototypeText>
+    <ja>ダークモード機能のプロトタイプ実装</ja>
+    <en>Dark Mode Feature Prototype Implementation</en>
+    <zh>暗黑模式功能原型实现</zh>
+    <ko>다크 모드 기능 프로토타입 구현</ko>
+    <tl>Prototype Implementation ng Dark Mode Feature</tl>
+    <th>การพัฒนาต้นแบบคุณสมบัติโหมดมืด</th>
+    <vi>Triển khai nguyên mẫu tính năng chế độ tối</vi>
+    <de>Prototyp-Implementierung der Dark Mode-Funktion</de>
+    <fr>Implémentation prototype de la fonctionnalité mode sombre</fr>
+    <es>Implementación prototipo de la función de modo oscuro</es>
+  </PrototypeText>
+
+  <!-- 言語名 -->
+  <Language_ja>
+    <ja>日本語</ja>
+    <en>日本語</en>
+    <zh>日本語</zh>
+    <ko>日本語</ko>
+    <tl>日本語</tl>
+    <th>日本語</th>
+    <vi>日本語</vi>
+    <de>日本語</de>
+    <fr>日本語</fr>
+    <es>日本語</es>
+  </Language_ja>
+
+  <Language_en>
+    <ja>English</ja>
+    <en>English</en>
+    <zh>English</zh>
+    <ko>English</ko>
+    <tl>English</tl>
+    <th>English</th>
+    <vi>English</vi>
+    <de>English</de>
+    <fr>English</fr>
+    <es>English</es>
+  </Language_en>
+
+  <Language_zh>
+    <ja>中文</ja>
+    <en>中文</en>
+    <zh>中文</zh>
+    <ko>中文</ko>
+    <tl>中文</tl>
+    <th>中文</th>
+    <vi>中文</vi>
+    <de>中文</de>
+    <fr>中文</fr>
+    <es>中文</es>
+  </Language_zh>
+
+  <Language_ko>
+    <ja>한국어</ja>
+    <en>한국어</en>
+    <zh>한국어</zh>
+    <ko>한국어</ko>
+    <tl>한국어</tl>
+    <th>한국어</th>
+    <vi>한국어</vi>
+    <de>한국어</de>
+    <fr>한국어</fr>
+    <es>한국어</es>
+  </Language_ko>
+
+  <Language_tl>
+    <ja>Tagalog</ja>
+    <en>Tagalog</en>
+    <zh>Tagalog</zh>
+    <ko>Tagalog</ko>
+    <tl>Tagalog</tl>
+    <th>Tagalog</th>
+    <vi>Tagalog</vi>
+    <de>Tagalog</de>
+    <fr>Tagalog</fr>
+    <es>Tagalog</es>
+  </Language_tl>
+
+  <Language_th>
+    <ja>ไทย</ja>
+    <en>ไทย</en>
+    <zh>ไทย</zh>
+    <ko>ไทย</ko>
+    <tl>ไทย</tl>
+    <th>ไทย</th>
+    <vi>ไทย</vi>
+    <de>ไทย</de>
+    <fr>ไทย</fr>
+    <es>ไทย</es>
+  </Language_th>
+
+  <Language_vi>
+    <ja>Tiếng Việt</ja>
+    <en>Tiếng Việt</en>
+    <zh>Tiếng Việt</zh>
+    <ko>Tiếng Việt</ko>
+    <tl>Tiếng Việt</tl>
+    <th>Tiếng Việt</th>
+    <vi>Tiếng Việt</vi>
+    <de>Tiếng Việt</de>
+    <fr>Tiếng Việt</fr>
+    <es>Tiếng Việt</es>
+  </Language_vi>
+
+  <Language_de>
+    <ja>Deutsch</ja>
+    <en>Deutsch</en>
+    <zh>Deutsch</zh>
+    <ko>Deutsch</ko>
+    <tl>Deutsch</tl>
+    <th>Deutsch</th>
+    <vi>Deutsch</vi>
+    <de>Deutsch</de>
+    <fr>Deutsch</fr>
+    <es>Deutsch</es>
+  </Language_de>
+
+  <Language_fr>
+    <ja>Français</ja>
+    <en>Français</en>
+    <zh>Français</zh>
+    <ko>Français</ko>
+    <tl>Français</tl>
+    <th>Français</th>
+    <vi>Français</vi>
+    <de>Français</de>
+    <fr>Français</fr>
+    <es>Français</es>
+  </Language_fr>
+
+  <Language_es>
+    <ja>Español</ja>
+    <en>Español</en>
+    <zh>Español</zh>
+    <ko>Español</ko>
+    <tl>Español</tl>
+    <th>Español</th>
+    <vi>Español</vi>
+    <de>Español</de>
+    <fr>Español</fr>
+    <es>Español</es>
+  </Language_es>
+</Languages>

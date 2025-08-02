@@ -6,28 +6,83 @@ using System.Linq;
 using System.Windows;
 
 using Livet;
+using NakuruTool.Services;
+using NakuruTool.Models.Theme;
 
 namespace NakuruTool
 {
+    /// <summary>
+    /// アプリケーションのメインクラス
+    /// </summary>
     public partial class App : Application
     {
+        #region プロパティ
+        
+        /// <summary>
+        /// テーマドメイン
+        /// </summary>
+        public static ThemeDomain ThemeDomain { get; private set; }
+        
+        /// <summary>
+        /// 現在のテーマがダークテーマかどうか
+        /// </summary>
+        public static bool IsDarkTheme 
+        { 
+            get { return ThemeDomain?.IsDarkTheme ?? false; } 
+        }
+        
+        #endregion
+
+        #region 関数
+        
+        /// <summary>
+        /// アプリケーション起動時の初期化処理
+        /// </summary>
+        /// <param name="sender">イベント送信者</param>
+        /// <param name="e">イベント引数</param>
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             DispatcherHelper.UIDispatcher = Dispatcher;
-            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            
+            // 設定ファイルを読み込み
+            ConfigManager.LoadConfig();
+            
+            // テーマドメインを初期化
+            ThemeDomain = new ThemeDomain();
+            ThemeDomain.Initialize();
+            
+            // 保存されたテーマをアプリケーションに適用
+            ThemeDomain.ApplyThemeToApplication();
+            
+            // 多言語対応の初期化（保存された言語で）
+            LanguageManager.Initialize(ConfigManager.CurrentConfig.CurrentLanguage);
         }
 
-        // Application level error handling
-        //private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        //{
-        //    //TODO: Logging
-        //    MessageBox.Show(
-        //        "Something errors were occurred.",
-        //        "Error",
-        //        MessageBoxButton.OK,
-        //        MessageBoxImage.Error);
-        //
-        //    Environment.Exit(1);
-        //}
+        /// <summary>
+        /// テーマを切り替えます
+        /// </summary>
+        public static void SwitchTheme()
+        {
+            if (ThemeDomain != null)
+            {
+                ThemeDomain.SwitchTheme();
+                ThemeDomain.ApplyThemeToApplication();
+            }
+        }
+
+        /// <summary>
+        /// 指定されたテーマを設定します
+        /// </summary>
+        /// <param name="isDark">ダークテーマを使用するかどうか</param>
+        public static void SetTheme(bool isDark)
+        {
+            if (ThemeDomain != null)
+            {
+                ThemeDomain.SetTheme(isDark);
+                ThemeDomain.ApplyThemeToApplication();
+            }
+        }
+        
+        #endregion
     }
 }

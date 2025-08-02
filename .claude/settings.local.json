@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv:*)"
+    ],
+    "deny": []
+  },
+  "hooks": {
+    "user-prompt-submit": "powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location 'E:/vscode/NakuruTool/Tools'; ./archive_prompt.bat \\\"$($env:PROMPT)\\\"\""
+  }
+}

@@ -16,6 +16,12 @@
             <!-- Converters -->
             <x:Static x:Key="BooleanInverseConverter" Member="converters:CommonConverter.BooleanInverse"/>
             <x:Static x:Key="BooleanToVisibilityConverter" Member="converters:CommonConverter.BooleanToVisibility"/>
+            
+            <!-- Global ListBoxItem style to prevent RelativeSource binding errors -->
+            <Style TargetType="ListBoxItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

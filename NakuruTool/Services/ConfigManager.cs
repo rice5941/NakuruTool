@@ -9,10 +9,6 @@ namespace NakuruTool.Services
     /// </summary>
     public class AppConfig
     {
-        /// <summary>
-        /// ダークテーマを使用するかどうか（互換性のために保持）
-        /// </summary>
-        public bool IsDarkTheme { get; set; } = false;
         
         /// <summary>
         /// 現在のテーマタイプ
@@ -141,17 +137,6 @@ namespace NakuruTool.Services
             }
         }
 
-        /// <summary>
-        /// テーマ設定を更新し、設定ファイルに保存します（互換性のため保持）
-        /// </summary>
-        /// <param name="isDarkTheme">ダークテーマを使用するかどうか</param>
-        public static void UpdateTheme(bool isDarkTheme)
-        {
-            CurrentConfig.IsDarkTheme = isDarkTheme;
-            // ThemeTypeも更新
-            CurrentConfig.ThemeType = isDarkTheme ? "Dark" : "Light";
-            SaveConfig();
-        }
 
         /// <summary>
         /// テーマタイプを更新し、設定ファイルに保存します
@@ -160,8 +145,6 @@ namespace NakuruTool.Services
         public static void UpdateThemeType(string themeType)
         {
             CurrentConfig.ThemeType = themeType;
-            // 互換性のためIsDarkThemeも更新
-            CurrentConfig.IsDarkTheme = themeType == "Dark";
             SaveConfig();
         }
 

@@ -19,14 +19,6 @@ namespace NakuruTool.Models.Theme
             _themeType = ThemeType.Light;
         }
 
-        /// <summary>
-        /// 指定されたテーマで初期化するコンストラクタ
-        /// </summary>
-        /// <param name="isDarkTheme">ダークテーマを使用するかどうか</param>
-        public Theme(bool isDarkTheme)
-        {
-            _themeType = isDarkTheme ? ThemeType.Dark : ThemeType.Light;
-        }
 
         /// <summary>
         /// 指定されたテーマタイプで初期化するコンストラクタ
@@ -43,25 +35,14 @@ namespace NakuruTool.Models.Theme
 
         /// <summary>
         /// 現在のテーマタイプ
-        /// 値が変更されると、関連するプロパティ（ThemeName、ThemeResourceUri、IsDarkTheme）も自動的に変更通知されます
+        /// 値が変更されると、関連するプロパティ（ThemeName、ThemeResourceUri）も自動的に変更通知されます
         /// </summary>
         public ThemeType CurrentThemeType
         {
             get { return _themeType; }
-            set { SetProperty(ref _themeType, value, new string[] { nameof(ThemeName), nameof(ThemeResourceUri), nameof(IsDarkTheme) }); }
+            set { SetProperty(ref _themeType, value, new string[] { nameof(ThemeName), nameof(ThemeResourceUri) }); }
         }
 
-        /// <summary>
-        /// ダークテーマが設定されているかどうか
-        /// </summary>
-        public bool IsDarkTheme 
-        { 
-            get { return _themeType == ThemeType.Dark; }
-            set 
-            { 
-                CurrentThemeType = value ? ThemeType.Dark : ThemeType.Light;
-            }
-        }
 
         /// <summary>
         /// 現在のテーマ名を取得します

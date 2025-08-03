@@ -39,9 +39,8 @@ namespace NakuruTool.Models.Theme
                     return new Theme(themeType);
                 }
                 
-                // 互換性のため、古いIsDarkTheme設定もチェック
-                var isDarkTheme = ConfigManager.CurrentConfig.IsDarkTheme;
-                return new Theme(isDarkTheme ? ThemeType.Dark : ThemeType.Light);
+                // デフォルトのライトテーマを返す
+                return new Theme(ThemeType.Light);
             }
             catch (Exception ex)
             {

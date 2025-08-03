@@ -54,7 +54,7 @@ namespace NakuruTool.Models.Theme
         /// </summary>
         public bool IsDarkTheme
         {
-            get { return _currentTheme?.IsDarkTheme ?? false; }
+            get { return _currentTheme?.CurrentThemeType == ThemeType.Dark; }
         }
 
         /// <summary>

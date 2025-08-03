@@ -107,23 +107,12 @@ namespace NakuruTool.ViewModels.Collection
             get { return _selectedCollection; }
             set
             {
-                if (RaisePropertyChangedIfSet(ref _selectedCollection, value))
-                {
-                    OnCollectionSelected();
-                }
+                RaisePropertyChangedIfSet(ref _selectedCollection, value);
             }
         }
 
         #endregion
 
-        #region イベント
-
-        /// <summary>
-        /// コレクション選択変更イベント
-        /// </summary>
-        public event EventHandler<CollectionSelectedEventArgs> CollectionSelected;
-
-        #endregion
 
         #region 関数
 
@@ -199,14 +188,6 @@ namespace NakuruTool.ViewModels.Collection
             }
         }
 
-        /// <summary>
-        /// コレクション選択時の処理
-        /// </summary>
-        private void OnCollectionSelected()
-        {
-            // イベントを発火してタブViewModel等に通知
-            CollectionSelected?.Invoke(this, new CollectionSelectedEventArgs(SelectedCollection));
-        }
 
         #endregion
 
@@ -235,27 +216,4 @@ namespace NakuruTool.ViewModels.Collection
         #endregion
     }
 
-    #region イベント引数クラス
-
-    /// <summary>
-    /// コレクション選択変更イベント引数
-    /// </summary>
-    public class CollectionSelectedEventArgs : EventArgs
-    {
-        /// <summary>
-        /// 選択されたコレクション
-        /// </summary>
-        public CollectionViewModel SelectedCollection { get; }
-
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        /// <param name="selectedCollection">選択されたコレクション</param>
-        public CollectionSelectedEventArgs(CollectionViewModel selectedCollection)
-        {
-            SelectedCollection = selectedCollection;
-        }
-    }
-
-    #endregion
 }

@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 using Livet;
 using NakuruTool.Services;
@@ -64,6 +66,9 @@ namespace NakuruTool
             
             // 多言語対応の初期化（保存された言語で）
             LanguageManager.Initialize(ConfigManager.CurrentConfig.CurrentLanguage);
+            
+            // PLINQウォームアップの実行（JITコンパイル遅延検証用）
+            WarmupPlinq();
         }
 
         /// <summary>
@@ -88,6 +93,38 @@ namespace NakuruTool
             {
                 ThemeDomain.SetTheme(themeType);
                 ThemeDomain.ApplyThemeToApplication();
+            }
+        }
+
+        /// <summary>
+        /// PLINQのウォームアップを行い、JITコンパイル遅延を解消します
+        /// </summary>
+        private void WarmupPlinq()
+        {
+            try
+            {
+                // ダミーデータでParallel.ForEachを実行（ExportStoreと同じパターン）
+                var dummyData = Enumerable.Range(1, 10000).ToList();
+                var result = new System.Collections.Concurrent.ConcurrentDictionary<int, string>();
+
+                Parallel.ForEach(dummyData, new ParallelOptions
+                {
+                    MaxDegreeOfParallelism = Environment.ProcessorCount
+                }, item =>
+                {
+                    result.TryAdd(item, $"dummy_{item}");
+                });
+
+                // AsParallel()も実行（ExportStoreのProcessBeatmapsAsyncと同じパターン）
+                var parallelResult = dummyData.AsParallel()
+                    .WithDegreeOfParallelism(Environment.ProcessorCount)
+                    .Select(x => new { id = x, value = $"parallel_{x}" })
+                    .ToArray();
+            }
+            catch (Exception ex)
+            {
+                // エラーログのみ保持（本番環境での問題診断用）
+                Debug.WriteLine($"[PLINQウォームアップ] エラー: {ex.Message}");
             }
         }
         

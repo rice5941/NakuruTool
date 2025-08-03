@@ -7,7 +7,8 @@
       "Bash(dir /a \"E:\\vscode\\NakuruTool4\\.claude\")",
       "Bash(dotnet build)",
       "Bash(mv:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(wmic:*)"
     ],
     "deny": []
   }

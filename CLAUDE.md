@@ -112,6 +112,175 @@ if (RaisePropertyChangedIfSet(ref _field, value))
 }
 ```
 
+#### ViewModel間通信パターン
+**重要**: PropertyChanged統一方式を採用
+
+**基本方針**:
+- **PropertyChanged統一**: 全ての通信（View↔ViewModel、ViewModel↔ViewModel）でPropertyChanged使用
+- **一貫性重視**: 複数の通信方式による混乱を回避
+- **WPF標準準拠**: MVVMパターンの標準実装に従う
+
+**推奨実装パターン**:
+
+1. **基本監視パターン**:
+```csharp
+// 受信側: シンプルな監視
+private void OnOperationPanelPropertyChanged(object sender, PropertyChangedEventArgs e)
+{
+    if (e.PropertyName == nameof(OperationPanelViewModel.IsLoading))
+    {
+        UpdateLoadingState();
+    }
+}
+```
+
+2. **複数プロパティ監視パターン**:
+```csharp
+// 効率的な複数プロパティ監視
+private void OnOperationPanelPropertyChanged(object sender, PropertyChangedEventArgs e)
+{
+    switch (e.PropertyName)
+    {
+        case nameof(OperationPanelViewModel.IsLoading):
+        case nameof(OperationPanelViewModel.StatusMessage):
+            UpdateStatus();
+            break;
+    }
+}
+```
+
+3. **配列ベース監視パターン**:
+```csharp
+// 保守性重視の監視方式
+private readonly string[] _statusProperties = {
+    nameof(OperationPanelViewModel.IsLoading),
+    nameof(OperationPanelViewModel.StatusMessage)
+};
+
+private void OnOperationPanelPropertyChanged(object sender, PropertyChangedEventArgs e)
+{
+    if (_statusProperties.Contains(e.PropertyName))
+    {
+        UpdateStatus();
+    }
+}
+```
+
+**設計判断基準**:
+- **全ての通信**: PropertyChanged使用
+- **型安全性**: nameof()でコンパイル時型チェック
+- **一貫性**: 同じパターンの統一使用
+
+**禁止事項**:
+- カスタムEventArgsの作成（一貫性を損なう）
+- 文字列リテラルでのプロパティ名指定
+- PropertyChanged以外の通信方式併用
+
+#### PropertyChangedパフォーマンス最適化パターン
+**重要**: 大量データ処理時のO(n²)問題回避
+
+**問題となるパターン**:
+```csharp
+// ❌ 悪い例: O(n²)になる実装
+private void SelectAllItems()
+{
+    foreach (var item in Items)
+    {
+        item.IsSelected = true; // 毎回PropertyChangedが発火
+        // → 毎回SelectedCountが再計算される（全要素をチェック）
+    }
+}
+
+public int SelectedCount => Items?.Count(x => x.IsSelected) ?? 0; // 計算プロパティ
+```
+
+**最適化パターン**:
+```csharp
+// ✅ 良い例: O(n)に最適化
+private void SelectAllItems()
+{
+    if (Items == null) return;
+    
+    // パフォーマンス最適化: イベント監視を一時停止
+    UnsubscribeFromItemEvents();
+    
+    try
+    {
+        // 全アイテムを選択（PropertyChangedは発火するが監視されない）
+        foreach (var item in Items)
+        {
+            item.IsSelected = true;
+        }
+    }
+    finally
+    {
+        // イベント監視を再開
+        SubscribeToItemEvents();
+        
+        // 一括で更新通知（O(1)の処理）
+        RaisePropertyChanged(nameof(SelectedCount));
+        RaisePropertyChanged(nameof(SelectedCountText));
+        UpdateCommandStates();
+    }
+}
+```
+
+**パフォーマンス改善効果**:
+- 1000件の場合: 100万回処理 → 1000回処理（99%削減）
+- UIフリーズの解消
+- メモリ使用量の削減
+
+**適用対象**:
+- 全選択/全選択解除処理
+- 大量データの一括更新
+- 計算プロパティに依存する繰り返し処理
+
+#### PLINQパフォーマンス最適化
+
+**問題**: 初回エクスポート時の15秒遅延（JITコンパイル）
+- 原因: System.Linq.Parallel.dll の遅延読み込み + 初回JITコンパイル
+- 影響: 初回のみ異常に長い処理時間（40件で15秒）
+
+**解決策**: アプリケーション起動時PLINQウォームアップ
+
+**実装場所**: `App.xaml.cs - Application_Startup()`
+```csharp
+private void WarmupPlinq()
+{
+    // ExportStoreと同じPLINQパターンで事前JITコンパイル
+    var dummyData = Enumerable.Range(1, 10000).ToList();
+    var result = new ConcurrentDictionary<int, string>();
+
+    Parallel.ForEach(dummyData, new ParallelOptions
+    {
+        MaxDegreeOfParallelism = Environment.ProcessorCount
+    }, item => result.TryAdd(item, $"dummy_{item}"));
+
+    var parallelResult = dummyData.AsParallel()
+        .WithDegreeOfParallelism(Environment.ProcessorCount)
+        .Select(x => new { id = x, value = $"parallel_{x}" })
+        .ToArray();
+}
+```
+
+**効果**:
+- **劇的改善**: 初回エクスポート 15秒 → 1.3秒（92%削減）
+- **起動コスト**: 116ms（軽微）
+- **対象データ**: 128,941曲でも135ms高速処理
+
+**検証結果**:
+```
+[PLINQウォームアップ] 処理時間: 116ms
+[ExportStore.LoadBeatmapDatabase] Parallel.ForEach: 135ms（従来12秒）
+System.Linq.Parallel.dll読み込みログなし（事前解決済み）
+```
+
+**将来の改善案**:
+```csharp
+// 非同期ウォームアップ（起動時間への影響完全排除）
+Task.Run(() => WarmupPlinq()); // バックグラウンド実行
+```
+
 ### 🔧 開発ワークフロー
 
 #### 新機能開発時

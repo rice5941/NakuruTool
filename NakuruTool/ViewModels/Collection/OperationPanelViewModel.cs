@@ -232,6 +232,7 @@ namespace NakuruTool.ViewModels.Collection
         /// </summary>
         public event EventHandler<CollectionLoadErrorEventArgs> CollectionLoadError;
 
+
         #endregion
 
         #region 関数
@@ -496,9 +497,26 @@ namespace NakuruTool.ViewModels.Collection
                 return;
             }
 
-            foreach (var collection in Collections)
+            // パフォーマンス最適化: イベント監視を一時停止
+            UnsubscribeFromCollectionEvents();
+            
+            try
             {
-                collection.IsSelected = true;
+                // 全コレクションを選択（PropertyChangedは発火するが監視されない）
+                foreach (var collection in Collections)
+                {
+                    collection.IsSelected = true;
+                }
+            }
+            finally
+            {
+                // イベント監視を再開
+                SubscribeToCollectionEvents();
+                
+                // 一括で更新通知（O(1)の処理）
+                RaisePropertyChanged(nameof(SelectedCollectionCount));
+                RaisePropertyChanged(nameof(SelectedCollectionCountText));
+                UpdateCommandStates();
             }
         }
 
@@ -521,9 +539,26 @@ namespace NakuruTool.ViewModels.Collection
                 return;
             }
 
-            foreach (var collection in Collections)
+            // パフォーマンス最適化: イベント監視を一時停止
+            UnsubscribeFromCollectionEvents();
+            
+            try
             {
-                collection.IsSelected = false;
+                // 全コレクション選択を解除（PropertyChangedは発火するが監視されない）
+                foreach (var collection in Collections)
+                {
+                    collection.IsSelected = false;
+                }
+            }
+            finally
+            {
+                // イベント監視を再開
+                SubscribeToCollectionEvents();
+                
+                // 一括で更新通知（O(1)の処理）
+                RaisePropertyChanged(nameof(SelectedCollectionCount));
+                RaisePropertyChanged(nameof(SelectedCollectionCountText));
+                UpdateCommandStates();
             }
         }
 

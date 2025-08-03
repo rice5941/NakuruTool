@@ -82,7 +82,7 @@ namespace NakuruTool.ViewModels.Tabs
         private void SetupEventHandlers()
         {
             // コレクション選択変更時の処理
-            CollectionListViewModel.CollectionSelected += OnCollectionSelected;
+            CollectionListViewModel.PropertyChanged += OnCollectionListPropertyChanged;
             
             // 操作パネルからのコレクション読み込み完了時の処理
             OperationPanelViewModel.CollectionsLoaded += OnCollectionsLoaded;
@@ -93,14 +93,17 @@ namespace NakuruTool.ViewModels.Tabs
         }
 
         /// <summary>
-        /// コレクション選択時の処理
+        /// CollectionListViewModelのプロパティ変更時の処理
         /// </summary>
         /// <param name="sender">送信者</param>
         /// <param name="e">イベント引数</param>
-        private void OnCollectionSelected(object sender, CollectionSelectedEventArgs e)
+        private void OnCollectionListPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            // 選択されたコレクションのビートマップを表示
-            CollectionBeatmapListViewModel.ShowCollectionBeatmaps(e.SelectedCollection);
+            if (e.PropertyName == nameof(CollectionListViewModel.SelectedCollection))
+            {
+                // 選択されたコレクションのビートマップを表示
+                CollectionBeatmapListViewModel.ShowCollectionBeatmaps(CollectionListViewModel.SelectedCollection);
+            }
         }
 
         /// <summary>
@@ -159,7 +162,7 @@ namespace NakuruTool.ViewModels.Tabs
                 // イベントハンドラを解除
                 if (CollectionListViewModel != null)
                 {
-                    CollectionListViewModel.CollectionSelected -= OnCollectionSelected;
+                    CollectionListViewModel.PropertyChanged -= OnCollectionListPropertyChanged;
                     CollectionListViewModel.Dispose();
                 }
 

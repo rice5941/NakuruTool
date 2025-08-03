@@ -156,6 +156,7 @@ namespace NakuruTool.ViewModels
         /// <param name="e">イベント引数</param>
         private void OnStatusChanged(object sender, StatusChangedEventArgs e)
         {
+            // 複数プロパティをまとめて処理したいためEventArgsを使用する.
             IsLoading = e.IsLoading;
             StatusMessage = e.StatusMessage;
         }

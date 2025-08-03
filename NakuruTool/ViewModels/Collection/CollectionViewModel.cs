@@ -56,6 +56,7 @@ namespace NakuruTool.ViewModels.Collection
         
         #endregion
 
+
         #region 関数
 
         /// <summary>

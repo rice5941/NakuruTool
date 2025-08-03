@@ -15,7 +15,6 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
 
         <!-- 所持コレクション -->
@@ -24,6 +23,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 
                 <!-- コレクション検索 -->
@@ -50,6 +50,25 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                
+                <!-- 所持コレクション操作ボタン -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                    <Button Content="{DynamicResource LoadCollections}" 
+                            Command="{Binding OperationPanelViewModel.LoadCollectionsCommand}"
+                            Background="{DynamicResource ButtonBackground}"
+                            Foreground="{DynamicResource ButtonForeground}"
+                            BorderBrush="{DynamicResource ButtonBorder}"
+                            Padding="10,5"
+                            Margin="0,0,5,0"/>
+                    
+                    <Button Content="{DynamicResource ExportCollections}" 
+                            IsEnabled="False"
+                            Background="{DynamicResource ButtonBackground}"
+                            Foreground="{DynamicResource ButtonForeground}"
+                            BorderBrush="{DynamicResource ButtonBorder}"
+                            Padding="10,5"
+                            ToolTip="今後実装予定"/>
+                </StackPanel>
             </Grid>
         </GroupBox>
         
@@ -57,12 +76,26 @@
         
         <!-- インポートリスト -->
         <GroupBox Grid.Column="2" Header="{DynamicResource ImportList}" Margin="5">
-            <ListBox/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- インポートリスト -->
+                <ListBox Grid.Row="0"/>
+                
+                <!-- インポートリスト操作ボタン -->
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                    <Button Content="{DynamicResource ImportCollections}" 
+                            IsEnabled="False"
+                            Background="{DynamicResource ButtonBackground}"
+                            Foreground="{DynamicResource ButtonForeground}"
+                            BorderBrush="{DynamicResource ButtonBorder}"
+                            Padding="10,5"
+                            ToolTip="今後実装予定"/>
+                </StackPanel>
+            </Grid>
         </GroupBox>
-        
-        <!-- 操作パネル -->
-        <collection:OperationPanelControl Grid.Column="3"
-                                         x:Name="OperationPanel"
-                                         DataContext="{Binding OperationPanelViewModel}"/>
     </Grid>
 </UserControl>

@@ -174,41 +174,6 @@ NakuruTool/Models/[機能名]/
 
 ### 🎨 UIコンポーネント標準パターン
 
-#### 検索機能付きリスト
-```xml
-<!-- 検索ボックス（虫眼鏡アイコン付き） -->
-<Border Background="{DynamicResource TextBoxBackground}">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <!-- 虫眼鏡アイコン -->
-        <Path Grid.Column="0" Data="M15.5 14h-.79l-.28-.27..." 
-              Fill="Gray" Width="16" Height="16"/>
-        
-        <!-- 検索テキストボックス -->
-        <TextBox Grid.Column="1" 
-                 Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
-    </Grid>
-</Border>
-
-<!-- プレースホルダーテキスト -->
-<TextBlock Text="{DynamicResource SearchPlaceholder}">
-    <TextBlock.Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="Visibility" Value="Collapsed"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding FilterText}" Value="">
-                    <Setter Property="Visibility" Value="Visible"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </TextBlock.Style>
-</TextBlock>
-```
-
 #### テーマ対応コントロール
 - 必ず `{DynamicResource [リソース名]}` を使用
 - 新しいテーマ追加時は3つのXAMLファイル更新必須

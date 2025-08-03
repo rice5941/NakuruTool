@@ -4,11 +4,11 @@
   },
   "permissions": {
     "allow": [
-      "Bash(del \"Models\\NotificationBase.cs\")"
+      "Bash(dir /a \"E:\\vscode\\NakuruTool4\\.claude\")",
+      "Bash(dotnet build)",
+      "Bash(mv:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
-  },
-  "hooks": {
-    "user-prompt-submit": "powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location 'E:/vscode/NakuruTool/Tools'; ./archive_prompt.bat \\\"$($env:PROMPT)\\\"\""
   }
 }

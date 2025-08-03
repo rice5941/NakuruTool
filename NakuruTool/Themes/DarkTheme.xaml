@@ -57,6 +57,17 @@
     <SolidColorBrush x:Key="TextBoxBackground" Color="#404040"/>
     <SolidColorBrush x:Key="TextBoxForeground" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="TextBoxBorder" Color="#3F3F46"/>
+    
+    <!-- TabControl Colors -->
+    <SolidColorBrush x:Key="TabControlBackground" Color="#2D2D30"/>
+    <SolidColorBrush x:Key="TabControlBorder" Color="#3F3F46"/>
+    <SolidColorBrush x:Key="TabItemBackground" Color="#404040"/>
+    <SolidColorBrush x:Key="TabItemForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="TabItemBorder" Color="#3F3F46"/>
+    <SolidColorBrush x:Key="TabItemSelectedBackground" Color="#2D2D30"/>
+    <SolidColorBrush x:Key="TabItemSelectedForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="TabItemHoverBackground" Color="#484848"/>
+    <SolidColorBrush x:Key="TabContentBackground" Color="#2D2D30"/>
 
     <!-- 共通コンボボックススタイル -->
     <Style x:Key="ThemedComboBoxStyle" TargetType="ComboBox">
@@ -678,6 +689,91 @@
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource ButtonPressedBackground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- TabControl ダークテーマスタイル -->
+    <Style x:Key="ThemedTabControlStyle" TargetType="TabControl">
+        <Setter Property="Background" Value="{DynamicResource TabControlBackground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource TabControlBorder}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- タブヘッダー領域 -->
+                        <Border Grid.Row="0"
+                                Background="{DynamicResource TabControlBackground}"
+                                BorderBrush="{DynamicResource TabControlBorder}"
+                                BorderThickness="0,0,0,1">
+                            <TabPanel Name="HeaderPanel" 
+                                     IsItemsHost="True" 
+                                     Panel.ZIndex="1" 
+                                     Margin="5,0,5,0"/>
+                        </Border>
+                        
+                        <!-- タブコンテンツ領域 -->
+                        <Border Grid.Row="1" 
+                                Name="ContentPanel"
+                                Background="{DynamicResource TabContentBackground}"
+                                BorderBrush="{DynamicResource TabControlBorder}"
+                                BorderThickness="1,0,1,1"
+                                CornerRadius="0,0,3,3">
+                            <ContentPresenter Name="PART_SelectedContentHost" 
+                                             ContentSource="SelectedContent" 
+                                             Margin="0"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- TabItem ダークテーマスタイル -->
+    <Style TargetType="TabItem">
+        <Setter Property="Background" Value="{DynamicResource TabItemBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TabItemForeground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource TabItemBorder}"/>
+        <Setter Property="BorderThickness" Value="1,1,1,0"/>
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="Margin" Value="0,0,2,0"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border Name="TabBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3,3,0,0"
+                            Margin="{TemplateBinding Margin}">
+                        <ContentPresenter Name="ContentSite"
+                                         ContentSource="Header"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Margin="{TemplateBinding Padding}"
+                                         TextElement.Foreground="{TemplateBinding Foreground}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="TabBorder" Property="Background" Value="{DynamicResource TabItemHoverBackground}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="TabBorder" Property="Background" Value="{DynamicResource TabItemSelectedBackground}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TabItemSelectedForeground}"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter TargetName="TabBorder" Property="BorderThickness" Value="1,1,1,0"/>
+                            <Setter TargetName="TabBorder" Property="Margin" Value="0,0,2,-1"/>
+                            <Setter Property="Panel.ZIndex" Value="1"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

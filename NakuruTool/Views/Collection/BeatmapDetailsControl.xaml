@@ -7,7 +7,7 @@
              xmlns:vmc="clr-namespace:NakuruTool.ViewModels.Collection"
              xmlns:controls="clr-namespace:NakuruTool.Views.Controls"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance vm:MainWindowViewModel}">
+             d:DataContext="{d:DesignInstance vmc:CollectionBeatmapListViewModel}">
     
     <GroupBox Header="{DynamicResource BeatmapDetails}" Margin="5">
         <Grid>
@@ -20,12 +20,12 @@
             <!-- 曲検索 -->
             <controls:SearchTextBox Grid.Row="0" 
                                    Margin="5"
-                                   SearchText="{Binding BeatmapDetails.BeatmapFilterText, UpdateSourceTrigger=PropertyChanged}"
+                                   SearchText="{Binding BeatmapFilterText, UpdateSourceTrigger=PropertyChanged}"
                                    PlaceholderText="{DynamicResource SearchBeatmapsPlaceholder}"/>
             
             <!-- ビートマップリスト -->
             <DataGrid Grid.Row="1"
-                     ItemsSource="{Binding BeatmapDetails.Beatmaps}" 
+                     ItemsSource="{Binding Beatmaps}" 
                      AutoGenerateColumns="False"
                      IsReadOnly="True"
                      GridLinesVisibility="Horizontal"
@@ -54,7 +54,7 @@
                     
                     <!-- ページング情報 -->
                     <TextBlock Grid.Column="0" 
-                              Text="{Binding BeatmapDetails.PagingInfo}" 
+                              Text="{Binding PagingInfo}" 
                               Foreground="{DynamicResource TextForeground}"
                               VerticalAlignment="Center"
                               FontSize="12"/>
@@ -64,25 +64,25 @@
                                Orientation="Horizontal" 
                                HorizontalAlignment="Right">
                         <Button Content="≪" 
-                               Command="{Binding BeatmapDetails.FirstPageCommand}"
+                               Command="{Binding FirstPageCommand}"
                                ToolTip="最初のページ"
                                MinWidth="30" 
                                Height="26" 
                                Margin="2,0"/>
                         <Button Content="&lt;" 
-                               Command="{Binding BeatmapDetails.PreviousPageCommand}"
+                               Command="{Binding PreviousPageCommand}"
                                ToolTip="前のページ"
                                MinWidth="30" 
                                Height="26" 
                                Margin="2,0"/>
                         <Button Content="&gt;" 
-                               Command="{Binding BeatmapDetails.NextPageCommand}"
+                               Command="{Binding NextPageCommand}"
                                ToolTip="次のページ"
                                MinWidth="30" 
                                Height="26" 
                                Margin="2,0"/>
                         <Button Content="≫" 
-                               Command="{Binding BeatmapDetails.LastPageCommand}"
+                               Command="{Binding LastPageCommand}"
                                ToolTip="最後のページ"
                                MinWidth="30" 
                                Height="26" 

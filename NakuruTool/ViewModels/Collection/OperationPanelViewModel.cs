@@ -1,10 +1,14 @@
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using Livet;
 using Livet.Commands;
 using NakuruTool.Models.Collection;
+using NakuruTool.Models.Export;
 using NakuruTool.Services;
 
 namespace NakuruTool.ViewModels.Collection
@@ -22,7 +26,9 @@ namespace NakuruTool.ViewModels.Collection
         public OperationPanelViewModel()
         {
             _collectionDomain = new CollectionDomain();
+            _exportDomain = new ExportDomain();
             _isLoading = false;
+            _isExportInProgress = false;
             _statusMessage = GetInitialStatusMessage();
             
             // ConfigManagerのOsuFolderPath変更イベントを監視
@@ -96,6 +102,119 @@ namespace NakuruTool.ViewModels.Collection
                     _loadCollectionsCommand = new ViewModelCommand(LoadCollections, CanLoadCollections);
                 }
                 return _loadCollectionsCommand;
+            }
+        }
+
+        /// <summary>
+        /// コレクション一覧（MainWindowViewModelとの連携用）
+        /// </summary>
+        public ObservableCollection<CollectionViewModel> Collections
+        {
+            get { return _collections; }
+            set
+            {
+                // 値が実際に変更される場合のみ処理
+                if (_collections != value)
+                {
+                    // 既存のコレクションのPropertyChangedイベントを解除
+                    UnsubscribeFromCollectionEvents();
+                    
+                    // 値を更新
+                    RaisePropertyChangedIfSet(ref _collections, value);
+                    
+                    // 新しいコレクションのPropertyChangedイベントを購読
+                    SubscribeToCollectionEvents();
+                    
+                    // 関連プロパティの更新
+                    RaisePropertyChanged(nameof(SelectedCollectionCount));
+                    RaisePropertyChanged(nameof(SelectedCollectionCountText));
+                    
+                    // コマンドの状態更新
+                    UpdateCommandStates();
+                }
+            }
+        }
+
+        /// <summary>
+        /// エクスポート処理中かどうか
+        /// </summary>
+        public bool IsExportInProgress
+        {
+            get { return _isExportInProgress; }
+            set
+            {
+                if (RaisePropertyChangedIfSet(ref _isExportInProgress, value))
+                {
+                    UpdateCommandStates();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 選択されたコレクション数
+        /// </summary>
+        public int SelectedCollectionCount
+        {
+            get
+            {
+                return Collections?.Count(x => x.IsSelected) ?? 0;
+            }
+        }
+
+        /// <summary>
+        /// 選択されたコレクション数の表示テキスト
+        /// </summary>
+        public string SelectedCollectionCountText
+        {
+            get
+            {
+                var count = SelectedCollectionCount;
+                if (count > 0)
+                {
+                    var template = LanguageManager.GetString("SelectedCollectionsCount");
+                    if (string.IsNullOrEmpty(template) || template == "SelectedCollectionsCount")
+                    {
+                        template = "選択中: {0}個";
+                    }
+                    return string.Format(template, count);
+                }
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// 選択されたコレクションのエクスポートコマンド
+        /// </summary>
+        public ViewModelCommand ExportSelectedCollectionsCommand
+        {
+            get
+            {
+                return _exportSelectedCollectionsCommand ??
+                    (_exportSelectedCollectionsCommand = new ViewModelCommand(ExportSelectedCollections, CanExportSelectedCollections));
+            }
+        }
+
+        /// <summary>
+        /// 全コレクション選択コマンド
+        /// </summary>
+        public ViewModelCommand SelectAllCollectionsCommand
+        {
+            get
+            {
+                return _selectAllCollectionsCommand ??
+                    (_selectAllCollectionsCommand = new ViewModelCommand(SelectAllCollections, CanSelectAllCollections));
+            }
+        }
+
+        /// <summary>
+        /// 全コレクション選択解除コマンド
+        /// </summary>
+        public ViewModelCommand UnselectAllCollectionsCommand
+        {
+            get
+            {
+                return _unselectAllCollectionsCommand ??
+                    (_unselectAllCollectionsCommand = new ViewModelCommand(UnselectAllCollections, CanUnselectAllCollections));
             }
         }
 
@@ -227,6 +346,206 @@ namespace NakuruTool.ViewModels.Collection
             }
         }
 
+        #region エクスポート関連関数
+
+        /// <summary>
+        /// コレクションのプロパティ変更時の処理
+        /// </summary>
+        /// <param name="sender">送信者</param>
+        /// <param name="e">イベント引数</param>
+        private void OnCollectionPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CollectionViewModel.IsSelected))
+            {
+                RaisePropertyChanged(nameof(SelectedCollectionCount));
+                RaisePropertyChanged(nameof(SelectedCollectionCountText));
+                UpdateCommandStates();
+            }
+        }
+
+        /// <summary>
+        /// コレクションイベントの購読
+        /// </summary>
+        private void SubscribeToCollectionEvents()
+        {
+            if (Collections != null)
+            {
+                foreach (var collection in Collections)
+                {
+                    collection.PropertyChanged += OnCollectionPropertyChanged;
+                }
+            }
+        }
+
+        /// <summary>
+        /// コレクションイベントの購読解除
+        /// </summary>
+        private void UnsubscribeFromCollectionEvents()
+        {
+            if (Collections != null)
+            {
+                foreach (var collection in Collections)
+                {
+                    collection.PropertyChanged -= OnCollectionPropertyChanged;
+                }
+            }
+        }
+
+        /// <summary>
+        /// コマンドの状態を更新します
+        /// </summary>
+        private void UpdateCommandStates()
+        {
+            ExportSelectedCollectionsCommand?.RaiseCanExecuteChanged();
+            SelectAllCollectionsCommand?.RaiseCanExecuteChanged();
+            UnselectAllCollectionsCommand?.RaiseCanExecuteChanged();
+        }
+
+        /// <summary>
+        /// 選択されたコレクションをエクスポート可能かどうか
+        /// </summary>
+        /// <returns>エクスポート可能な場合はtrue</returns>
+        private bool CanExportSelectedCollections()
+        {
+            if (IsExportInProgress)
+            {
+                return false;
+            }
+
+            if (SelectedCollectionCount == 0)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(OsuFolderPath))
+            {
+                return false;
+            }
+
+            var selectedCollections = GetSelectedCollections();
+            return _exportDomain.CanExport(selectedCollections, OsuFolderPath);
+        }
+
+        /// <summary>
+        /// 選択されたコレクションをエクスポートします
+        /// </summary>
+        private async void ExportSelectedCollections()
+        {
+            try
+            {
+                IsExportInProgress = true;
+                
+                var selectedCollections = GetSelectedCollections();
+
+                if (selectedCollections.Count == 0 || string.IsNullOrWhiteSpace(OsuFolderPath))
+                {
+                    return;
+                }
+
+                // 進行状況をステータスメッセージで表示
+                var progress = new Progress<string>(message =>
+                {
+                    StatusMessage = message;
+                });
+
+                var result = await _exportDomain.ExportCollectionsAsync(selectedCollections, OsuFolderPath, progress);
+
+                // 完了メッセージを表示
+                var summaryMessage = _exportDomain.GenerateSummaryMessage(result);
+                var title = LanguageManager.GetString("ExportCompleted") ?? "エクスポート完了";
+                
+                MessageBox.Show(summaryMessage, title, MessageBoxButton.OK, 
+                    result.IsSuccess ? MessageBoxImage.Information : MessageBoxImage.Warning);
+
+                // ステータスメッセージをクリア
+                StatusMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                var errorTemplate = LanguageManager.GetString("ExportError") ?? "エクスポート中にエラーが発生しました: {0}";
+                var errorMessage = string.Format(errorTemplate, ex.Message);
+                var errorTitle = LanguageManager.GetString("Error") ?? "エラー";
+                
+                MessageBox.Show(errorMessage, errorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // ステータスメッセージをクリア
+                StatusMessage = string.Empty;
+            }
+            finally
+            {
+                IsExportInProgress = false;
+            }
+        }
+
+        /// <summary>
+        /// 全コレクション選択可能かどうか
+        /// </summary>
+        /// <returns>選択可能な場合はtrue</returns>
+        private bool CanSelectAllCollections()
+        {
+            return (IsExportInProgress == false) && (Collections?.Count > 0);
+        }
+
+        /// <summary>
+        /// 全コレクションを選択します
+        /// </summary>
+        private void SelectAllCollections()
+        {
+            if (Collections == null)
+            {
+                return;
+            }
+
+            foreach (var collection in Collections)
+            {
+                collection.IsSelected = true;
+            }
+        }
+
+        /// <summary>
+        /// 全コレクション選択解除可能かどうか
+        /// </summary>
+        /// <returns>選択解除可能な場合はtrue</returns>
+        private bool CanUnselectAllCollections()
+        {
+            return (IsExportInProgress == false) && (SelectedCollectionCount > 0);
+        }
+
+        /// <summary>
+        /// 全コレクションの選択を解除します
+        /// </summary>
+        private void UnselectAllCollections()
+        {
+            if (Collections == null)
+            {
+                return;
+            }
+
+            foreach (var collection in Collections)
+            {
+                collection.IsSelected = false;
+            }
+        }
+
+        /// <summary>
+        /// 選択されたコレクションのリストを取得します
+        /// </summary>
+        /// <returns>選択されたコレクションのリスト</returns>
+        private List<Models.Collection.Collection> GetSelectedCollections()
+        {
+            if (Collections == null)
+            {
+                return new List<Models.Collection.Collection>();
+            }
+
+            return Collections
+                .Where(x => x.IsSelected && x.OriginalCollection != null)
+                .Select(x => x.OriginalCollection)
+                .ToList();
+        }
+
+        #endregion
+
         #endregion
 
         #region メンバ変数
@@ -256,6 +575,36 @@ namespace NakuruTool.ViewModels.Collection
         /// </summary>
         private ViewModelCommand _loadCollectionsCommand;
 
+        /// <summary>
+        /// エクスポートドメイン
+        /// </summary>
+        private readonly ExportDomain _exportDomain;
+
+        /// <summary>
+        /// コレクション一覧
+        /// </summary>
+        private ObservableCollection<CollectionViewModel> _collections;
+
+        /// <summary>
+        /// エクスポート処理中かどうか
+        /// </summary>
+        private bool _isExportInProgress;
+
+        /// <summary>
+        /// 選択されたコレクションのエクスポートコマンドの実体
+        /// </summary>
+        private ViewModelCommand _exportSelectedCollectionsCommand;
+
+        /// <summary>
+        /// 全コレクション選択コマンドの実体
+        /// </summary>
+        private ViewModelCommand _selectAllCollectionsCommand;
+
+        /// <summary>
+        /// 全コレクション選択解除コマンドの実体
+        /// </summary>
+        private ViewModelCommand _unselectAllCollectionsCommand;
+
         #endregion
 
         #region クリーンアップ
@@ -269,6 +618,9 @@ namespace NakuruTool.ViewModels.Collection
             {
                 // ConfigManagerのイベントハンドラを解除
                 ConfigManager.OsuFolderPathChanged -= OnConfigManagerOsuFolderPathChanged;
+                
+                // コレクションのイベントハンドラを解除
+                UnsubscribeFromCollectionEvents();
             }
             base.Dispose(disposing);
         }

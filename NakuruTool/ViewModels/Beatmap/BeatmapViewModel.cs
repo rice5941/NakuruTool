@@ -1,7 +1,7 @@
 using Livet;
-using NakuruTool.Models.Collection;
+using BeatmapModel = NakuruTool.Models.Collection.Beatmap;
 
-namespace NakuruTool.ViewModels.Collection
+namespace NakuruTool.ViewModels.Beatmap
 {
     /// <summary>
     /// View用のビートマップ情報を表現するViewModel
@@ -64,7 +64,7 @@ namespace NakuruTool.ViewModels.Collection
         /// </summary>
         /// <param name="beatmap">変換元のBeatmap</param>
         /// <returns>BeatmapViewModel</returns>
-        public static BeatmapViewModel FromBeatmap(Beatmap beatmap)
+        public static BeatmapViewModel FromBeatmap(BeatmapModel beatmap)
         {
             return new BeatmapViewModel
             {

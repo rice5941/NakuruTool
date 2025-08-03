@@ -89,19 +89,41 @@
                     VerticalAlignment="Center"/>
         </Grid>
         
-        <!-- メインコンテンツ部分 -->
-        <Grid Grid.Row="1" Margin="10, 0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>   <!-- メインエリア -->
-                <RowDefinition Height="4*"/>    <!-- 曲リスト -->
-            </Grid.RowDefinitions>
-
-            <!-- メインエリア -->
-            <vc:CollectionListControl Grid.Row="0" x:Name="CollectionListControl" DataContext="{Binding}"/>
+        <!-- メインコンテンツ部分（タブコントロール） -->
+        <TabControl Grid.Row="1" Margin="10,5,10,0"
+                   Style="{DynamicResource ThemedTabControlStyle}">
             
-            <!-- 下部曲リスト -->
-            <vc:BeatmapDetailsControl Grid.Row="1" DataContext="{Binding}"/>
-        </Grid>
+            <!-- コレクション管理タブ -->
+            <TabItem Header="{DynamicResource Collections}" Name="CollectionTab"
+                    DataContext="{Binding CollectionTabViewModel}">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>   <!-- メインエリア -->
+                        <RowDefinition Height="4*"/>    <!-- 曲リスト -->
+                    </Grid.RowDefinitions>
+
+                    <!-- メインエリア -->
+                    <vc:CollectionListControl Grid.Row="0" x:Name="CollectionListControl" DataContext="{Binding}"/>
+                    
+                    <!-- 下部曲リスト -->
+                    <vc:BeatmapDetailsControl Grid.Row="1" DataContext="{Binding CollectionBeatmapListViewModel}"/>
+                </Grid>
+            </TabItem>
+            
+            <!-- 将来の全曲リストタブ用プレースホルダー（コメントアウト） -->
+            <!--
+            <TabItem Header="{DynamicResource AllSongs}" Name="AllSongsTab">
+                <Grid>
+                    <TextBlock Text="将来の全曲リスト機能" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="{DynamicResource TextForeground}"/>
+                </Grid>
+            </TabItem>
+            -->
+            
+        </TabControl>
         
         <!-- ステータスバー -->
         <Border Grid.Row="2" 
@@ -117,14 +139,14 @@
                 
                 <!-- ローディングインジケーター -->
                 <ProgressBar Grid.Row="0"
-                             IsIndeterminate="{Binding OperationPanelViewModel.IsLoading}"
+                             IsIndeterminate="{Binding IsLoading}"
                              Height="4"
                              Margin="0,0,0,5"
-                             Visibility="{Binding OperationPanelViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                             Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 
                 <!-- ステータスメッセージ -->
                 <TextBlock Grid.Row="1"
-                           Text="{Binding OperationPanelViewModel.StatusMessage}" 
+                           Text="{Binding StatusMessage}" 
                            TextWrapping="Wrap" 
                            FontSize="10"
                            Foreground="{DynamicResource TextForeground}"/>

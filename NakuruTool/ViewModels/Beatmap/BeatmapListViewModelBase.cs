@@ -5,19 +5,19 @@ using System.Linq;
 using Livet;
 using Livet.Commands;
 
-namespace NakuruTool.ViewModels.Collection
+namespace NakuruTool.ViewModels.Beatmap
 {
     /// <summary>
-    /// ビートマップ詳細表示のViewModel
+    /// ビートマップリスト表示の共通基底クラス
     /// </summary>
-    public class BeatmapDetailsViewModel : ViewModel
+    public abstract class BeatmapListViewModelBase : ViewModel
     {
         #region コンストラクタ
         
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public BeatmapDetailsViewModel()
+        protected BeatmapListViewModelBase()
         {
             _beatmaps = new ObservableCollection<BeatmapViewModel>();
             _allBeatmaps = new List<BeatmapViewModel>();
@@ -204,7 +204,7 @@ namespace NakuruTool.ViewModels.Collection
         /// ビートマップ一覧を設定します
         /// </summary>
         /// <param name="beatmaps">ビートマップ一覧</param>
-        public void SetBeatmaps(IEnumerable<BeatmapViewModel> beatmaps)
+        public virtual void SetBeatmaps(IEnumerable<BeatmapViewModel> beatmaps)
         {
             AllBeatmaps = beatmaps?.ToList() ?? new List<BeatmapViewModel>();
         }
@@ -212,7 +212,7 @@ namespace NakuruTool.ViewModels.Collection
         /// <summary>
         /// ページング情報を更新します
         /// </summary>
-        private void UpdatePaging()
+        protected virtual void UpdatePaging()
         {
             if (FilteredBeatmaps == null || FilteredBeatmaps.Count == 0)
             {
@@ -235,7 +235,7 @@ namespace NakuruTool.ViewModels.Collection
         /// <summary>
         /// 現在のページに表示するビートマップを更新します
         /// </summary>
-        private void UpdatePagedBeatmaps()
+        protected virtual void UpdatePagedBeatmaps()
         {
             Beatmaps.Clear();
 
@@ -262,7 +262,7 @@ namespace NakuruTool.ViewModels.Collection
         /// <summary>
         /// ページング情報テキストを更新します
         /// </summary>
-        private void UpdatePagingInfo()
+        protected virtual void UpdatePagingInfo()
         {
             if (FilteredBeatmaps == null || FilteredBeatmaps.Count == 0)
             {
@@ -283,6 +283,40 @@ namespace NakuruTool.ViewModels.Collection
                 var totalCount = AllBeatmaps?.Count ?? 0;
                 PagingInfo = $"{startIndex}-{endIndex} / {FilteredBeatmaps.Count}件 (全{totalCount}件中) (ページ {CurrentPage}/{TotalPages})";
             }
+        }
+
+        /// <summary>
+        /// ビートマップフィルタを適用します
+        /// </summary>
+        protected virtual void ApplyBeatmapFilter()
+        {
+            if (AllBeatmaps == null)
+            {
+                FilteredBeatmaps = new List<BeatmapViewModel>();
+                return;
+            }
+
+            List<BeatmapViewModel> newFilteredList;
+            if (string.IsNullOrWhiteSpace(BeatmapFilterText))
+            {
+                // フィルタが空の場合は全て表示
+                newFilteredList = new List<BeatmapViewModel>(AllBeatmaps);
+            }
+            else
+            {
+                // フィルタテキストに一致するビートマップのみ表示（ToLowerInvariant使用）
+                var filterLower = BeatmapFilterText.ToLowerInvariant();
+                newFilteredList = AllBeatmaps.Where(beatmap =>
+                    beatmap.Title.ToLowerInvariant().Contains(filterLower) ||
+                    beatmap.Artist.ToLowerInvariant().Contains(filterLower) ||
+                    beatmap.Creator.ToLowerInvariant().Contains(filterLower) ||
+                    beatmap.Version.ToLowerInvariant().Contains(filterLower)
+                ).ToList();
+            }
+
+            // フィルタ適用時は最初のページに戻る
+            _currentPage = 1;
+            FilteredBeatmaps = newFilteredList;
         }
 
         /// <summary>
@@ -363,40 +397,6 @@ namespace NakuruTool.ViewModels.Collection
         private bool CanLastPage()
         {
             return CurrentPage < TotalPages && TotalPages > 0;
-        }
-
-        /// <summary>
-        /// ビートマップフィルタを適用します
-        /// </summary>
-        private void ApplyBeatmapFilter()
-        {
-            if (AllBeatmaps == null)
-            {
-                FilteredBeatmaps = new List<BeatmapViewModel>();
-                return;
-            }
-
-            List<BeatmapViewModel> newFilteredList;
-            if (string.IsNullOrWhiteSpace(BeatmapFilterText))
-            {
-                // フィルタが空の場合は全て表示
-                newFilteredList = new List<BeatmapViewModel>(AllBeatmaps);
-            }
-            else
-            {
-                // フィルタテキストに一致するビートマップのみ表示（ToLowerInvariant使用）
-                var filterLower = BeatmapFilterText.ToLowerInvariant();
-                newFilteredList = AllBeatmaps.Where(beatmap =>
-                    beatmap.Title.ToLowerInvariant().Contains(filterLower) ||
-                    beatmap.Artist.ToLowerInvariant().Contains(filterLower) ||
-                    beatmap.Creator.ToLowerInvariant().Contains(filterLower) ||
-                    beatmap.Version.ToLowerInvariant().Contains(filterLower)
-                ).ToList();
-            }
-
-            // フィルタ適用時は最初のページに戻る
-            _currentPage = 1;
-            FilteredBeatmaps = newFilteredList;
         }
 
         #endregion

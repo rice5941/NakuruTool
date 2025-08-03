@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Livet;
 using NakuruTool.Models.Collection;
+using NakuruTool.ViewModels.Beatmap;
 
 namespace NakuruTool.ViewModels.Collection
 {
@@ -34,6 +35,24 @@ namespace NakuruTool.ViewModels.Collection
         /// ビートマップ数
         /// </summary>
         public int BeatmapCount => _beatmaps.Count;
+
+        /// <summary>
+        /// エクスポート用に選択されているかどうか
+        /// </summary>
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set { RaisePropertyChangedIfSet(ref _isSelected, value); }
+        }
+
+        /// <summary>
+        /// 元のCollectionデータへの参照
+        /// </summary>
+        public Models.Collection.Collection OriginalCollection
+        {
+            get { return _originalCollection; }
+            set { RaisePropertyChangedIfSet(ref _originalCollection, value); }
+        }
         
         #endregion
 
@@ -49,7 +68,9 @@ namespace NakuruTool.ViewModels.Collection
             return new CollectionViewModel
             {
                 Name = collection.Name,
-                Beatmaps = collection.Beatmaps.Select(BeatmapViewModel.FromBeatmap).ToList()
+                Beatmaps = collection.Beatmaps.Select(BeatmapViewModel.FromBeatmap).ToList(),
+                OriginalCollection = collection,
+                IsSelected = false
             };
         }
 
@@ -66,6 +87,16 @@ namespace NakuruTool.ViewModels.Collection
         /// ビートマップリスト
         /// </summary>
         private List<BeatmapViewModel> _beatmaps = new List<BeatmapViewModel>();
+
+        /// <summary>
+        /// エクスポート用に選択されているかどうか
+        /// </summary>
+        private bool _isSelected = false;
+
+        /// <summary>
+        /// 元のCollectionデータへの参照
+        /// </summary>
+        private Models.Collection.Collection _originalCollection;
         
         #endregion
     }

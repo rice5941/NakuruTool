@@ -741,4 +741,216 @@
     <fr>Rechercher des chansons (titre, artiste, créateur, nom de difficulté)...</fr>
     <es>Buscar canciones (título, artista, creador, nombre de dificultad)...</es>
   </SearchBeatmapsPlaceholder>
+
+  <!-- エクスポート機能関連 -->
+  <SelectAll>
+    <ja>全選択</ja>
+    <en>Select All</en>
+    <zh>全选</zh>
+    <ko>전체 선택</ko>
+    <tl>Piliin Lahat</tl>
+    <th>เลือกทั้งหมด</th>
+    <vi>Chọn tất cả</vi>
+    <de>Alle auswählen</de>
+    <fr>Tout sélectionner</fr>
+    <es>Seleccionar todo</es>
+  </SelectAll>
+
+  <UnselectAll>
+    <ja>全解除</ja>
+    <en>Unselect All</en>
+    <zh>全部取消</zh>
+    <ko>전체 해제</ko>
+    <tl>Alisin ang Lahat</tl>
+    <th>ยกเลิกเลือกทั้งหมด</th>
+    <vi>Bỏ chọn tất cả</vi>
+    <de>Alle abwählen</de>
+    <fr>Tout désélectionner</fr>
+    <es>Deseleccionar todo</es>
+  </UnselectAll>
+
+  <SelectForExportTooltip>
+    <ja>エクスポートするコレクションを選択</ja>
+    <en>Select collection for export</en>
+    <zh>选择要导出的收藏</zh>
+    <ko>내보낼 컬렉션 선택</ko>
+    <tl>Piliin ang koleksyon para i-export</tl>
+    <th>เลือกคอลเลกชันสำหรับส่งออก</th>
+    <vi>Chọn bộ sưu tập để xuất</vi>
+    <de>Sammlung für Export auswählen</de>
+    <fr>Sélectionner la collection pour l'export</fr>
+    <es>Seleccionar colección para exportar</es>
+  </SelectForExportTooltip>
+
+  <SelectedCollectionsCount>
+    <ja>選択中: {0}個</ja>
+    <en>Selected: {0}</en>
+    <zh>已选择: {0}个</zh>
+    <ko>선택됨: {0}개</ko>
+    <tl>Napili: {0}</tl>
+    <th>เลือกแล้ว: {0} รายการ</th>
+    <vi>Đã chọn: {0}</vi>
+    <de>Ausgewählt: {0}</de>
+    <fr>Sélectionné: {0}</fr>
+    <es>Seleccionado: {0}</es>
+  </SelectedCollectionsCount>
+
+  <!-- エクスポート進行状況メッセージ -->
+  <CreatingOutputFolder>
+    <ja>出力フォルダを作成中...</ja>
+    <en>Creating output folder...</en>
+    <zh>正在创建输出文件夹...</zh>
+    <ko>출력 폴더 생성 중...</ko>
+    <tl>Ginagawa ang output folder...</tl>
+    <th>กำลังสร้างโฟลเดอร์เอาต์พุต...</th>
+    <vi>Đang tạo thư mục xuất...</vi>
+    <de>Erstelle Ausgabeordner...</de>
+    <fr>Création du dossier de sortie...</fr>
+    <es>Creando carpeta de salida...</es>
+  </CreatingOutputFolder>
+
+  <LoadingBeatmapDatabase>
+    <ja>ビートマップデータベースを読み込み中...</ja>
+    <en>Loading beatmap database...</en>
+    <zh>正在加载谱面数据库...</zh>
+    <ko>비트맵 데이터베이스 로딩 중...</ko>
+    <tl>Naglo-load ng beatmap database...</tl>
+    <th>กำลังโหลดฐานข้อมูลบีทแมพ...</th>
+    <vi>Đang tải cơ sở dữ liệu beatmap...</vi>
+    <de>Lade Beatmap-Datenbank...</de>
+    <fr>Chargement de la base de données des beatmaps...</fr>
+    <es>Cargando base de datos de beatmaps...</es>
+  </LoadingBeatmapDatabase>
+
+  <ExportingCollections>
+    <ja>コレクションをエクスポート中...</ja>
+    <en>Exporting collections...</en>
+    <zh>正在导出收藏...</zh>
+    <ko>컬렉션 내보내기 중...</ko>
+    <tl>Ine-export ang mga koleksyon...</tl>
+    <th>กำลังส่งออกคอลเลกชัน...</th>
+    <vi>Đang xuất bộ sưu tập...</vi>
+    <de>Exportiere Sammlungen...</de>
+    <fr>Exportation des collections...</fr>
+    <es>Exportando colecciones...</es>
+  </ExportingCollections>
+
+  <ExportCompleted>
+    <ja>エクスポート完了</ja>
+    <en>Export Completed</en>
+    <zh>导出完成</zh>
+    <ko>내보내기 완료</ko>
+    <tl>Tapos na ang Export</tl>
+    <th>ส่งออกเสร็จสิ้น</th>
+    <vi>Xuất hoàn tất</vi>
+    <de>Export abgeschlossen</de>
+    <fr>Export terminé</fr>
+    <es>Exportación completada</es>
+  </ExportCompleted>
+
+  <!-- エクスポート結果メッセージ -->
+  <ExportSuccessMessage>
+    <ja>エクスポートが完了しました。\n\nエクスポートされたコレクション数: {0}\n出力フォルダ: {1}\n処理時間: {2:F2}秒</ja>
+    <en>Export completed successfully.\n\nExported collections: {0}\nOutput folder: {1}\nProcessing time: {2:F2} seconds</en>
+    <zh>导出成功完成。\n\n导出的收藏数: {0}\n输出文件夹: {1}\n处理时间: {2:F2}秒</zh>
+    <ko>내보내기가 성공적으로 완료되었습니다.\n\n내보낸 컬렉션 수: {0}\n출력 폴더: {1}\n처리 시간: {2:F2}초</ko>
+    <tl>Matagumpay na natapos ang export.\n\nMga na-export na koleksyon: {0}\nOutput folder: {1}\nOras ng pagproseso: {2:F2} segundo</tl>
+    <th>ส่งออกสำเร็จแล้ว\n\nคอลเลกชันที่ส่งออก: {0}\nโฟลเดอร์เอาต์พุต: {1}\nเวลาประมวลผล: {2:F2} วินาที</th>
+    <vi>Xuất thành công.\n\nBộ sưu tập đã xuất: {0}\nThư mục xuất: {1}\nThời gian xử lý: {2:F2} giây</vi>
+    <de>Export erfolgreich abgeschlossen.\n\nExportierte Sammlungen: {0}\nAusgabeordner: {1}\nVerarbeitungszeit: {2:F2} Sekunden</de>
+    <fr>Export terminé avec succès.\n\nCollections exportées: {0}\nDossier de sortie: {1}\nTemps de traitement: {2:F2} secondes</fr>
+    <es>Exportación completada con éxito.\n\nColecciones exportadas: {0}\nCarpeta de salida: {1}\nTiempo de procesamiento: {2:F2} segundos</es>
+  </ExportSuccessMessage>
+
+  <ExportErrorMessage>
+    <ja>エクスポートでエラーが発生しました。\n\nエラー数: {0}\n最初のエラー: {1}</ja>
+    <en>Export encountered errors.\n\nError count: {0}\nFirst error: {1}</en>
+    <zh>导出时发生错误。\n\n错误数量: {0}\n首个错误: {1}</zh>
+    <ko>내보내기에서 오류가 발생했습니다.\n\n오류 수: {0}\n첫 번째 오류: {1}</ko>
+    <tl>May mga error na naganap sa export.\n\nBilang ng error: {0}\nUnang error: {1}</tl>
+    <th>เกิดข้อผิดพลาดในการส่งออก\n\nจำนวนข้อผิดพลาด: {0}\nข้อผิดพลาดแรก: {1}</th>
+    <vi>Xuất gặp lỗi.\n\nSố lỗi: {0}\nLỗi đầu tiên: {1}</vi>
+    <de>Export ist auf Fehler gestoßen.\n\nAnzahl Fehler: {0}\nErster Fehler: {1}</de>
+    <fr>L'export a rencontré des erreurs.\n\nNombre d'erreurs: {0}\nPremière erreur: {1}</fr>
+    <es>La exportación encontró errores.\n\nCantidad de errores: {0}\nPrimer error: {1}</es>
+  </ExportErrorMessage>
+
+  <!-- エクスポートエラーメッセージ -->
+  <NoCollectionsToExport>
+    <ja>エクスポートするコレクションがありません</ja>
+    <en>No collections to export</en>
+    <zh>没有要导出的收藏</zh>
+    <ko>내보낼 컬렉션이 없습니다</ko>
+    <tl>Walang mga koleksyon na ie-export</tl>
+    <th>ไม่มีคอลเลกชันที่จะส่งออก</th>
+    <vi>Không có bộ sưu tập nào để xuất</vi>
+    <de>Keine Sammlungen zum Exportieren</de>
+    <fr>Aucune collection à exporter</fr>
+    <es>No hay colecciones para exportar</es>
+  </NoCollectionsToExport>
+
+  <OsuFolderNotFound>
+    <ja>osu!フォルダが見つかりません: {0}</ja>
+    <en>osu! folder not found: {0}</en>
+    <zh>找不到osu!文件夹: {0}</zh>
+    <ko>osu! 폴더를 찾을 수 없습니다: {0}</ko>
+    <tl>Hindi natagpuan ang osu! folder: {0}</tl>
+    <th>ไม่พบโฟลเดอร์ osu!: {0}</th>
+    <vi>Không tìm thấy thư mục osu!: {0}</vi>
+    <de>osu! Ordner nicht gefunden: {0}</de>
+    <fr>Dossier osu! introuvable: {0}</fr>
+    <es>Carpeta osu! no encontrada: {0}</es>
+  </OsuFolderNotFound>
+
+  <OutputFolderPathNotSpecified>
+    <ja>出力フォルダパスが指定されていません</ja>
+    <en>Output folder path is not specified</en>
+    <zh>未指定输出文件夹路径</zh>
+    <ko>출력 폴더 경로가 지정되지 않았습니다</ko>
+    <tl>Hindi nakatukoy ang output folder path</tl>
+    <th>ไม่ได้ระบุเส้นทางโฟลเดอร์เอาต์พุต</th>
+    <vi>Đường dẫn thư mục xuất không được chỉ định</vi>
+    <de>Ausgabeordnerpfad ist nicht angegeben</de>
+    <fr>Le chemin du dossier de sortie n'est pas spécifié</fr>
+    <es>No se especificó la ruta de la carpeta de salida</es>
+  </OutputFolderPathNotSpecified>
+
+  <ErrorExportingCollection>
+    <ja>コレクション '{0}' のエクスポートに失敗: {1}</ja>
+    <en>Failed to export collection '{0}': {1}</en>
+    <zh>导出收藏 '{0}' 失败: {1}</zh>
+    <ko>컬렉션 '{0}' 내보내기 실패: {1}</ko>
+    <tl>Nabigong i-export ang koleksyon '{0}': {1}</tl>
+    <th>ส่งออกคอลเลกชัน '{0}' ล้มเหลว: {1}</th>
+    <vi>Không thể xuất bộ sưu tập '{0}': {1}</vi>
+    <de>Fehler beim Exportieren der Sammlung '{0}': {1}</de>
+    <fr>Échec de l'export de la collection '{0}': {1}</fr>
+    <es>Error al exportar la colección '{0}': {1}</es>
+  </ErrorExportingCollection>
+
+  <ExportError>
+    <ja>エクスポート中にエラーが発生しました: {0}</ja>
+    <en>An error occurred during export: {0}</en>
+    <zh>导出过程中发生错误: {0}</zh>
+    <ko>내보내기 중 오류가 발생했습니다: {0}</ko>
+    <tl>May naganap na error sa export: {0}</tl>
+    <th>เกิดข้อผิดพลาดระหว่างการส่งออก: {0}</th>
+    <vi>Đã xảy ra lỗi trong quá trình xuất: {0}</vi>
+    <de>Ein Fehler ist während des Exports aufgetreten: {0}</de>
+    <fr>Une erreur s'est produite lors de l'export: {0}</fr>
+    <es>Ocurrió un error durante la exportación: {0}</es>
+  </ExportError>
+
+  <ExportResultNotAvailable>
+    <ja>エクスポート結果が利用できません</ja>
+    <en>Export result not available</en>
+    <zh>导出结果不可用</zh>
+    <ko>내보내기 결과를 사용할 수 없습니다</ko>
+    <tl>Hindi available ang export result</tl>
+    <th>ผลการส่งออกไม่พร้อมใช้งาน</th>
+    <vi>Kết quả xuất không khả dụng</vi>
+    <de>Exportergebnis nicht verfügbar</de>
+    <fr>Résultat d'export non disponible</fr>
+    <es>Resultado de exportación no disponible</es>
+  </ExportResultNotAvailable>
 </Languages>

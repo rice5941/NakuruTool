@@ -31,14 +31,23 @@ namespace NakuruTool.Models.Theme
             {
                 // ConfigManagerから設定を読み込み
                 ConfigManager.LoadConfig();
+                var themeTypeValue = ConfigManager.CurrentConfig.ThemeType;
+                
+                // 文字列からThemeTypeに変換
+                if (Enum.TryParse<ThemeType>(themeTypeValue, out var themeType))
+                {
+                    return new Theme(themeType);
+                }
+                
+                // 互換性のため、古いIsDarkTheme設定もチェック
                 var isDarkTheme = ConfigManager.CurrentConfig.IsDarkTheme;
-                return new Theme(isDarkTheme);
+                return new Theme(isDarkTheme ? ThemeType.Dark : ThemeType.Light);
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Failed to load theme: {ex.Message}");
                 // フォールバック：デフォルトのライトテーマを返す
-                return new Theme(false);
+                return new Theme(ThemeType.Light);
             }
         }
 
@@ -56,7 +65,8 @@ namespace NakuruTool.Models.Theme
 
             try
             {
-                ConfigManager.UpdateTheme(theme.IsDarkTheme);
+                // ThemeTypeを文字列として保存
+                ConfigManager.UpdateThemeType(theme.CurrentThemeType.ToString());
                 return true;
             }
             catch (Exception ex)
@@ -72,7 +82,7 @@ namespace NakuruTool.Models.Theme
         /// <returns>デフォルトテーマ（ライトテーマ）</returns>
         public Theme CreateDefaultTheme()
         {
-            return new Theme(false);
+            return new Theme(ThemeType.Light);
         }
 
         /// <summary>

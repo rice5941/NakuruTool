@@ -16,7 +16,7 @@ namespace NakuruTool.Models.Theme
         /// </summary>
         public Theme()
         {
-            _isDarkTheme = false;
+            _themeType = ThemeType.Light;
         }
 
         /// <summary>
@@ -25,7 +25,16 @@ namespace NakuruTool.Models.Theme
         /// <param name="isDarkTheme">ダークテーマを使用するかどうか</param>
         public Theme(bool isDarkTheme)
         {
-            _isDarkTheme = isDarkTheme;
+            _themeType = isDarkTheme ? ThemeType.Dark : ThemeType.Light;
+        }
+
+        /// <summary>
+        /// 指定されたテーマタイプで初期化するコンストラクタ
+        /// </summary>
+        /// <param name="themeType">テーマタイプ</param>
+        public Theme(ThemeType themeType)
+        {
+            _themeType = themeType;
         }
 
         #endregion
@@ -33,13 +42,25 @@ namespace NakuruTool.Models.Theme
         #region プロパティ
 
         /// <summary>
+        /// 現在のテーマタイプ
+        /// 値が変更されると、関連するプロパティ（ThemeName、ThemeResourceUri、IsDarkTheme）も自動的に変更通知されます
+        /// </summary>
+        public ThemeType CurrentThemeType
+        {
+            get { return _themeType; }
+            set { SetProperty(ref _themeType, value, new string[] { nameof(ThemeName), nameof(ThemeResourceUri), nameof(IsDarkTheme) }); }
+        }
+
+        /// <summary>
         /// ダークテーマが設定されているかどうか
-        /// 値が変更されると、関連するプロパティ（ThemeName、ThemeResourceUri）も自動的に変更通知されます
         /// </summary>
         public bool IsDarkTheme 
         { 
-            get { return _isDarkTheme; }
-            set { SetProperty(ref _isDarkTheme, value, new string[] { nameof(ThemeName), nameof(ThemeResourceUri) }); }
+            get { return _themeType == ThemeType.Dark; }
+            set 
+            { 
+                CurrentThemeType = value ? ThemeType.Dark : ThemeType.Light;
+            }
         }
 
         /// <summary>
@@ -49,7 +70,16 @@ namespace NakuruTool.Models.Theme
         {
             get
             {
-                return IsDarkTheme ? "ダークテーマ" : "ライトテーマ";
+                switch (_themeType)
+                {
+                    case ThemeType.Dark:
+                        return "ダークテーマ";
+                    case ThemeType.Osu:
+                        return "osu!テーマ";
+                    case ThemeType.Light:
+                    default:
+                        return "ライトテーマ";
+                }
             }
         }
 
@@ -60,9 +90,16 @@ namespace NakuruTool.Models.Theme
         {
             get
             {
-                return IsDarkTheme 
-                    ? "pack://application:,,,/Themes/DarkTheme.xaml"
-                    : "pack://application:,,,/Themes/LightTheme.xaml";
+                switch (_themeType)
+                {
+                    case ThemeType.Dark:
+                        return "pack://application:,,,/Themes/DarkTheme.xaml";
+                    case ThemeType.Osu:
+                        return "pack://application:,,,/Themes/OsuTheme.xaml";
+                    case ThemeType.Light:
+                    default:
+                        return "pack://application:,,,/Themes/LightTheme.xaml";
+                }
             }
         }
 
@@ -71,20 +108,32 @@ namespace NakuruTool.Models.Theme
         #region 関数
 
         /// <summary>
-        /// テーマを切り替えます
+        /// テーマを切り替えます（次のテーマへ循環）
         /// </summary>
         public void SwitchTheme()
         {
-            IsDarkTheme = (IsDarkTheme == false);
+            switch (_themeType)
+            {
+                case ThemeType.Light:
+                    CurrentThemeType = ThemeType.Dark;
+                    break;
+                case ThemeType.Dark:
+                    CurrentThemeType = ThemeType.Osu;
+                    break;
+                case ThemeType.Osu:
+                    CurrentThemeType = ThemeType.Light;
+                    break;
+            }
         }
 
+
         /// <summary>
-        /// 指定されたテーマに設定します
+        /// 指定されたテーマタイプに設定します
         /// </summary>
-        /// <param name="isDarkTheme">ダークテーマを使用するかどうか</param>
-        public void SetTheme(bool isDarkTheme)
+        /// <param name="themeType">テーマタイプ</param>
+        public void SetTheme(ThemeType themeType)
         {
-            IsDarkTheme = isDarkTheme;
+            CurrentThemeType = themeType;
         }
 
         /// <summary>
@@ -93,7 +142,7 @@ namespace NakuruTool.Models.Theme
         /// <returns>テーマ設定のコピー</returns>
         public Theme Clone()
         {
-            return new Theme(IsDarkTheme);
+            return new Theme(_themeType);
         }
 
         /// <summary>
@@ -105,7 +154,7 @@ namespace NakuruTool.Models.Theme
         {
             if (obj is Theme theme)
             {
-                return IsDarkTheme == theme.IsDarkTheme;
+                return _themeType == theme._themeType;
             }
             return false;
         }
@@ -116,7 +165,7 @@ namespace NakuruTool.Models.Theme
         /// <returns>ハッシュコード</returns>
         public override int GetHashCode()
         {
-            return IsDarkTheme.GetHashCode();
+            return _themeType.GetHashCode();
         }
 
         /// <summary>
@@ -133,9 +182,9 @@ namespace NakuruTool.Models.Theme
         #region メンバ変数
 
         /// <summary>
-        /// ダークテーマが設定されているかどうかのバッキングフィールド
+        /// 現在のテーマタイプのバッキングフィールド
         /// </summary>
-        private bool _isDarkTheme;
+        private ThemeType _themeType;
 
         #endregion
     }

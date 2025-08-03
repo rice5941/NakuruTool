@@ -1,62 +1,65 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- Light Theme Colors -->
-    <SolidColorBrush x:Key="WindowBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="TextForeground" Color="#000000"/>
-    <SolidColorBrush x:Key="BorderBrush" Color="#CCCCCC"/>
-    <SolidColorBrush x:Key="ButtonBackground" Color="#F0F0F0"/>
-    <SolidColorBrush x:Key="ButtonForeground" Color="#000000"/>
-    <SolidColorBrush x:Key="ButtonBorder" Color="#CCCCCC"/>
-    <SolidColorBrush x:Key="ButtonDisabledBackground" Color="#F8F8F8"/>
-    <SolidColorBrush x:Key="ButtonDisabledForeground" Color="#A0A0A0"/>
-    <SolidColorBrush x:Key="ButtonDisabledBorder" Color="#E0E0E0"/>
-    <SolidColorBrush x:Key="ButtonHoverBackground" Color="#E8E8E8"/>
-    <SolidColorBrush x:Key="ButtonPressedBackground" Color="#D8D8D8"/>
+    <!-- osu! Theme Colors -->
+    <!-- Base colors inspired by osu! game design -->
+    <SolidColorBrush x:Key="WindowBackground" Color="#35324C"/> <!-- Dark purple background -->
+    <SolidColorBrush x:Key="TextForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="#5933CC"/> <!-- Purple3 for borders -->
+    
+    <!-- Button colors with osu! pink accent -->
+    <SolidColorBrush x:Key="ButtonBackground" Color="#FF66AA"/> <!-- Pink -->
+    <SolidColorBrush x:Key="ButtonForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="ButtonBorder" Color="#CC5288"/> <!-- PinkDark -->
+    <SolidColorBrush x:Key="ButtonDisabledBackground" Color="#6B2E49"/> <!-- Pink4 -->
+    <SolidColorBrush x:Key="ButtonDisabledForeground" Color="#CCCCCC"/>
+    <SolidColorBrush x:Key="ButtonDisabledBorder" Color="#3D2E6B"/> <!-- Purple4 -->
+    <SolidColorBrush x:Key="ButtonHoverBackground" Color="#FF99CC"/> <!-- PinkLight -->
+    <SolidColorBrush x:Key="ButtonPressedBackground" Color="#EB4791"/> <!-- Pink2 -->
     
     <!-- ComboBox Colors -->
-    <SolidColorBrush x:Key="ComboBoxBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="ComboBoxForeground" Color="#000000"/>
-    <SolidColorBrush x:Key="ComboBoxBorder" Color="#CCCCCC"/>
-    <SolidColorBrush x:Key="ComboBoxDropDownBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="ComboBoxItemHover" Color="#E5E5E5"/>
-    <SolidColorBrush x:Key="ComboBoxItemSelected" Color="#D0D0D0"/>
+    <SolidColorBrush x:Key="ComboBoxBackground" Color="#441188"/> <!-- PurpleDarker -->
+    <SolidColorBrush x:Key="ComboBoxForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="ComboBoxBorder" Color="#8866EE"/> <!-- Purple -->
+    <SolidColorBrush x:Key="ComboBoxDropDownBackground" Color="#312436"/> <!-- PurpleDarkAlternative -->
+    <SolidColorBrush x:Key="ComboBoxItemHover" Color="#6644CC"/> <!-- PurpleDark -->
+    <SolidColorBrush x:Key="ComboBoxItemSelected" Color="#8866EE"/> <!-- Purple -->
     
     <!-- GroupBox Colors -->
-    <SolidColorBrush x:Key="GroupBoxHeaderForeground" Color="#000000"/>
-    <SolidColorBrush x:Key="GroupBoxBorderBrush" Color="#CCCCCC"/>
+    <SolidColorBrush x:Key="GroupBoxHeaderForeground" Color="#FF99CC"/> <!-- PinkLight -->
+    <SolidColorBrush x:Key="GroupBoxBorderBrush" Color="#7047EB"/> <!-- Purple2 -->
     
     <!-- ListBox Colors -->
-    <SolidColorBrush x:Key="ListBoxBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="ListBoxForeground" Color="#000000"/>
-    <SolidColorBrush x:Key="ListBoxBorder" Color="#CCCCCC"/>
-    <SolidColorBrush x:Key="ListBoxItemHover" Color="#E5E5E5"/>
-    <SolidColorBrush x:Key="ListBoxItemSelected" Color="#D0D0D0"/>
+    <SolidColorBrush x:Key="ListBoxBackground" Color="#312436"/> <!-- PurpleDarkAlternative -->
+    <SolidColorBrush x:Key="ListBoxForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="ListBoxBorder" Color="#5933CC"/> <!-- Purple3 -->
+    <SolidColorBrush x:Key="ListBoxItemHover" Color="#6644CC"/> <!-- PurpleDark -->
+    <SolidColorBrush x:Key="ListBoxItemSelected" Color="#8866EE"/> <!-- Purple -->
     
     <!-- DataGrid Colors -->
-    <SolidColorBrush x:Key="DataGridBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="DataGridForeground" Color="#000000"/>
-    <SolidColorBrush x:Key="DataGridBorder" Color="#CCCCCC"/>
-    <SolidColorBrush x:Key="DataGridHeaderBackground" Color="#F0F0F0"/>
-    <SolidColorBrush x:Key="DataGridHeaderForeground" Color="#000000"/>
-    <SolidColorBrush x:Key="DataGridRowHover" Color="#E5E5E5"/>
-    <SolidColorBrush x:Key="DataGridRowSelected" Color="#D0D0D0"/>
-    <SolidColorBrush x:Key="DataGridGridLines" Color="#CCCCCC"/>
+    <SolidColorBrush x:Key="DataGridBackground" Color="#312436"/> <!-- PurpleDarkAlternative -->
+    <SolidColorBrush x:Key="DataGridForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="DataGridBorder" Color="#5933CC"/> <!-- Purple3 -->
+    <SolidColorBrush x:Key="DataGridHeaderBackground" Color="#441188"/> <!-- PurpleDarker -->
+    <SolidColorBrush x:Key="DataGridHeaderForeground" Color="#FF99CC"/> <!-- PinkLight -->
+    <SolidColorBrush x:Key="DataGridRowHover" Color="#6644CC"/> <!-- PurpleDark -->
+    <SolidColorBrush x:Key="DataGridRowSelected" Color="#8866EE"/> <!-- Purple -->
+    <SolidColorBrush x:Key="DataGridGridLines" Color="#5933CC"/> <!-- Purple3 -->
     
     <!-- ScrollBar Colors -->
-    <SolidColorBrush x:Key="ScrollBarBackground" Color="#F0F0F0"/>
-    <SolidColorBrush x:Key="ScrollBarThumbBackground" Color="#C0C0C0"/>
-    <SolidColorBrush x:Key="ScrollBarThumbHover" Color="#A0A0A0"/>
-    <SolidColorBrush x:Key="ScrollBarThumbPressed" Color="#808080"/>
-    <SolidColorBrush x:Key="ScrollBarArrowBackground" Color="#E0E0E0"/>
-    <SolidColorBrush x:Key="ScrollBarArrowHover" Color="#D0D0D0"/>
-    <SolidColorBrush x:Key="ScrollBarArrowPressed" Color="#C0C0C0"/>
-    <SolidColorBrush x:Key="ScrollBarArrowForeground" Color="#505050"/>
+    <SolidColorBrush x:Key="ScrollBarBackground" Color="#312436"/> <!-- PurpleDarkAlternative -->
+    <SolidColorBrush x:Key="ScrollBarThumbBackground" Color="#8866EE"/> <!-- Purple -->
+    <SolidColorBrush x:Key="ScrollBarThumbHover" Color="#AA88FF"/> <!-- PurpleLight -->
+    <SolidColorBrush x:Key="ScrollBarThumbPressed" Color="#B299FF"/> <!-- Purple0 -->
+    <SolidColorBrush x:Key="ScrollBarArrowBackground" Color="#6644CC"/> <!-- PurpleDark -->
+    <SolidColorBrush x:Key="ScrollBarArrowHover" Color="#8866EE"/> <!-- Purple -->
+    <SolidColorBrush x:Key="ScrollBarArrowPressed" Color="#AA88FF"/> <!-- PurpleLight -->
+    <SolidColorBrush x:Key="ScrollBarArrowForeground" Color="#FFFFFF"/>
     
     <!-- TextBox Colors -->
-    <SolidColorBrush x:Key="TextBoxBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="TextBoxForeground" Color="#000000"/>
-    <SolidColorBrush x:Key="TextBoxBorder" Color="#CCCCCC"/>
+    <SolidColorBrush x:Key="TextBoxBackground" Color="#441188"/> <!-- PurpleDarker -->
+    <SolidColorBrush x:Key="TextBoxForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="TextBoxBorder" Color="#8866EE"/> <!-- Purple -->
 
     <!-- 共通コンボボックススタイル -->
     <Style x:Key="ThemedComboBoxStyle" TargetType="ComboBox">
@@ -182,7 +185,7 @@
         </Style.Triggers>
     </Style>
 
-    <!-- GroupBox ライトテーマスタイル -->
+    <!-- GroupBox osu!テーマスタイル -->
     <Style TargetType="GroupBox">
         <Setter Property="Foreground" Value="{DynamicResource GroupBoxHeaderForeground}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource GroupBoxBorderBrush}"/>
@@ -220,7 +223,7 @@
         </Setter>
     </Style>
 
-    <!-- ListBox ライトテーマスタイル -->
+    <!-- ListBox osu!テーマスタイル -->
     <Style TargetType="ListBox">
         <Setter Property="Background" Value="{DynamicResource ListBoxBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource ListBoxForeground}"/>
@@ -248,7 +251,7 @@
         </Setter>
     </Style>
 
-    <!-- ListBoxItem ライトテーマスタイル -->
+    <!-- ListBoxItem osu!テーマスタイル -->
     <Style TargetType="ListBoxItem">
         <Setter Property="Foreground" Value="{DynamicResource ListBoxForeground}"/>
         <Setter Property="Padding" Value="8,4"/>
@@ -279,14 +282,14 @@
         </Setter>
     </Style>
 
-    <!-- DataGrid ライトテーマスタイル -->
+    <!-- DataGrid osu!テーマスタイル -->
     <Style TargetType="DataGrid">
         <Setter Property="Background" Value="{DynamicResource DataGridBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource DataGridForeground}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource DataGridBorder}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="RowBackground" Value="Transparent"/>
-        <Setter Property="AlternatingRowBackground" Value="#F8F8F8"/>
+        <Setter Property="AlternatingRowBackground" Value="#3D2E6B"/> <!-- Purple4 -->
         <Setter Property="GridLinesVisibility" Value="Horizontal"/>
         <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource DataGridGridLines}"/>
         <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource DataGridGridLines}"/>
@@ -366,7 +369,7 @@
         </Setter>
     </Style>
 
-    <!-- DataGridColumnHeader ライトテーマスタイル -->
+    <!-- DataGridColumnHeader osu!テーマスタイル -->
     <Style TargetType="DataGridColumnHeader">
         <Setter Property="Background" Value="{DynamicResource DataGridHeaderBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource DataGridHeaderForeground}"/>
@@ -389,7 +392,7 @@
         </Setter>
     </Style>
 
-    <!-- DataGridRow ライトテーマスタイル -->
+    <!-- DataGridRow osu!テーマスタイル -->
     <Style TargetType="DataGridRow">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource DataGridForeground}"/>
@@ -403,7 +406,7 @@
         </Style.Triggers>
     </Style>
 
-    <!-- DataGridCell ライトテーマスタイル -->
+    <!-- DataGridCell osu!テーマスタイル -->
     <Style TargetType="DataGridCell">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource DataGridForeground}"/>
@@ -423,7 +426,7 @@
         </Setter>
     </Style>
 
-    <!-- Button ライトテーマスタイル -->
+    <!-- Button osu!テーマスタイル -->
     <Style TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource ButtonBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}"/>
@@ -463,7 +466,7 @@
         </Setter>
     </Style>
 
-    <!-- ScrollViewer ライトテーマスタイル -->
+    <!-- ScrollViewer osu!テーマスタイル -->
     <Style TargetType="ScrollViewer">
         <Setter Property="Template">
             <Setter.Value>
@@ -506,7 +509,7 @@
         </Setter>
     </Style>
 
-    <!-- ScrollBar ライトテーマスタイル -->
+    <!-- ScrollBar osu!テーマスタイル -->
     <Style TargetType="ScrollBar">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Focusable" Value="False"/>
@@ -534,9 +537,7 @@
                                 <ControlTemplate TargetType="RepeatButton">
                                     <Border Name="Border"
                                            Background="{TemplateBinding Background}"
-                                           BorderThickness="0"
-                                     Focusable="False"
-                                     OverridesDefaultStyle="True">
+                                           BorderThickness="0">
                                         <Path Name="Arrow"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
@@ -609,9 +610,7 @@
                                 <ControlTemplate TargetType="RepeatButton">
                                     <Border Name="Border"
                                            Background="{TemplateBinding Background}"
-                                           BorderThickness="0"
-                                     Focusable="False"
-                                     OverridesDefaultStyle="True">
+                                           BorderThickness="0">
                                         <Path Name="Arrow"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
@@ -655,7 +654,7 @@
         </Setter>
     </Style>
 
-    <!-- TextBox ライトテーマスタイル -->
+    <!-- TextBox osu!テーマスタイル -->
     <Style TargetType="TextBox">
         <Setter Property="Background" Value="{DynamicResource TextBoxBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource TextBoxForeground}"/>

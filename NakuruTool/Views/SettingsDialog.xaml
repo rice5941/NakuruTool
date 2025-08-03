@@ -8,7 +8,7 @@
     xmlns:vm="clr-namespace:NakuruTool.ViewModels"
     Title="{DynamicResource Settings}"
     Width="450"
-    Height="380"
+    Height="450"
     WindowStartupLocation="CenterOwner"
     ResizeMode="NoResize"
     Background="{DynamicResource WindowBackground}">
@@ -48,17 +48,65 @@
 
         <!-- 設定項目 -->
         <StackPanel Grid.Row="1" Orientation="Vertical">
+            <!-- osu!フォルダ設定 -->
+            <GroupBox Header="osu!フォルダ設定" 
+                      Foreground="{DynamicResource TextForeground}"
+                      BorderBrush="{DynamicResource BorderBrush}"
+                      Margin="0,0,0,15">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" 
+                              Text="osu!のインストールフォルダを指定してください"
+                              Foreground="{DynamicResource TextForeground}"
+                              Margin="0,0,0,8"/>
+                    
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBox Grid.Column="0"
+                                Text="{Binding OsuFolderPath}"
+                                IsReadOnly="True"
+                                Background="{DynamicResource WindowBackground}"
+                                Foreground="{DynamicResource TextForeground}"
+                                BorderBrush="{DynamicResource BorderBrush}"
+                                Padding="8,6"
+                                Margin="0,0,8,0"/>
+                        
+                        <Button Grid.Column="1"
+                               Content="{DynamicResource SelectFolder}"
+                               Command="{Binding SelectFolderCommand}"
+                               Background="{DynamicResource ButtonBackground}"
+                               Foreground="{DynamicResource ButtonForeground}"
+                               BorderBrush="{DynamicResource ButtonBorder}"
+                               Padding="12,6"
+                               MinWidth="80"/>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+
+            <!-- テーマ設定 -->
             <GroupBox Header="{DynamicResource ThemeSettings}" 
                       Foreground="{DynamicResource TextForeground}"
                       BorderBrush="{DynamicResource BorderBrush}"
                       Margin="0,0,0,15">
                 <StackPanel Orientation="Vertical" Margin="10">
                     <RadioButton Content="{DynamicResource LightTheme}" 
-                                 IsChecked="{Binding IsDarkTheme, Converter={StaticResource BooleanInverseConverter}}"
+                                 IsChecked="{Binding IsLightTheme}"
                                  Foreground="{DynamicResource TextForeground}"
                                  Margin="0,5"/>
                     <RadioButton Content="{DynamicResource DarkTheme}" 
                                  IsChecked="{Binding IsDarkTheme}"
+                                 Foreground="{DynamicResource TextForeground}"
+                                 Margin="0,5"/>
+                    <RadioButton Content="{DynamicResource OsuTheme}" 
+                                 IsChecked="{Binding IsOsuTheme}"
                                  Foreground="{DynamicResource TextForeground}"
                                  Margin="0,5"/>
                 </StackPanel>

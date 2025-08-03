@@ -5,7 +5,3 @@
 # 全体設計
 
 - **基本構成**: .net6.0, WPF, Livet を使用したMVVMパターンを採用します。
-- **アーキテクチャ**: **View, ViewModel, Feature, Model** の4層に加え、通信処理を分離する **Adapter** 層を設けます。
-- **レイヤー間のルール**:
-    - Model層とViewModel層は、互いを直接参照しません。
-    - ViewModel層とModel層の連携は、必ずFeature層を介して行います。

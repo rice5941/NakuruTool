@@ -1,0 +1,54 @@
+<UserControl x:Class="NakuruTool.Views.Controls.SearchTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    
+    <Border Background="{DynamicResource TextBoxBackground}"
+            BorderBrush="{DynamicResource TextBoxBorder}"
+            BorderThickness="1"
+            CornerRadius="3">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- 虫眼鏡アイコン -->
+            <Path Grid.Column="0"
+                  Style="{StaticResource SearchTextBoxIconStyle}"/>
+            
+            <!-- テキストボックス -->
+            <TextBox Grid.Column="1"
+                     x:Name="InnerTextBox"
+                     Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     Padding="0,2,5,2"
+                     VerticalAlignment="Center"/>
+            
+            <!-- プレースホルダーテキスト -->
+            <TextBlock Grid.Column="1"
+                       Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=PlaceholderText}" 
+                       Foreground="Gray" 
+                       Padding="0,2,5,2"
+                       IsHitTestVisible="False"
+                       VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=SearchText}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=SearchText}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+    </Border>
+</UserControl>

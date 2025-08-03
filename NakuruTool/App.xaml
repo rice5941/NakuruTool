@@ -9,10 +9,13 @@
             <ResourceDictionary.MergedDictionaries>
                 <!-- 初期テーマ（ライトテーマ）を設定 -->
                 <ResourceDictionary Source="Themes/LightTheme.xaml"/>
+                <!-- 共通アイコンリソース -->
+                <ResourceDictionary Source="Resources/Icons/CommonIcons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <!-- Converters -->
             <x:Static x:Key="BooleanInverseConverter" Member="converters:CommonConverter.BooleanInverse"/>
+            <x:Static x:Key="BooleanToVisibilityConverter" Member="converters:CommonConverter.BooleanToVisibility"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

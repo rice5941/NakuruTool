@@ -25,5 +25,17 @@ namespace NakuruTool.Properties {
         
         // 設定はConfigManager/config.jsonに統一のため、このクラスは最小構成とする
         // 既存のCurrentLanguageプロパティは削除し、ConfigManagerを使用
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OsuFolderPath {
+            get {
+                return ((string)(this["OsuFolderPath"]));
+            }
+            set {
+                this["OsuFolderPath"] = value;
+            }
+        }
     }
 }

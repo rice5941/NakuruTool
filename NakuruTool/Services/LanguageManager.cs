@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
-// using System.Configuration; // ConfigManagerに統一のため削除
 using System.Xml.Linq;
 
 namespace NakuruTool.Services
@@ -238,6 +237,21 @@ namespace NakuruTool.Services
                 }
             }
             return languageCode;
+        }
+
+        /// <summary>
+        /// 指定されたキーの多言語文字列を取得します
+        /// </summary>
+        /// <param name="key">リソースキー</param>
+        /// <returns>現在の言語の文字列、見つからない場合はキー名</returns>
+        public static string GetString(string key)
+        {
+            var app = Application.Current;
+            if (app?.Resources[key] is string value)
+            {
+                return value;
+            }
+            return key; // フォールバック
         }
         
         #endregion

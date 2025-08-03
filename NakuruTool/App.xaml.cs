@@ -31,6 +31,14 @@ namespace NakuruTool
             get { return ThemeDomain?.IsDarkTheme ?? false; } 
         }
         
+        /// <summary>
+        /// 現在のテーマタイプ
+        /// </summary>
+        public static ThemeType CurrentThemeType
+        {
+            get { return ThemeDomain?.CurrentTheme?.CurrentThemeType ?? ThemeType.Light; }
+        }
+        
         #endregion
 
         #region 関数
@@ -71,14 +79,14 @@ namespace NakuruTool
         }
 
         /// <summary>
-        /// 指定されたテーマを設定します
+        /// 指定されたテーマタイプを設定します
         /// </summary>
-        /// <param name="isDark">ダークテーマを使用するかどうか</param>
-        public static void SetTheme(bool isDark)
+        /// <param name="themeType">テーマタイプ</param>
+        public static void SetTheme(ThemeType themeType)
         {
             if (ThemeDomain != null)
             {
-                ThemeDomain.SetTheme(isDark);
+                ThemeDomain.SetTheme(themeType);
                 ThemeDomain.ApplyThemeToApplication();
             }
         }

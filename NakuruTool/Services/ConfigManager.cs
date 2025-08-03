@@ -10,14 +10,24 @@ namespace NakuruTool.Services
     public class AppConfig
     {
         /// <summary>
-        /// ダークテーマを使用するかどうか
+        /// ダークテーマを使用するかどうか（互換性のために保持）
         /// </summary>
         public bool IsDarkTheme { get; set; } = false;
+        
+        /// <summary>
+        /// 現在のテーマタイプ
+        /// </summary>
+        public string ThemeType { get; set; } = "Light";
         
         /// <summary>
         /// 現在の言語設定
         /// </summary>
         public string CurrentLanguage { get; set; } = "ja-JP";
+        
+        /// <summary>
+        /// osu!フォルダパス
+        /// </summary>
+        public string OsuFolderPath { get; set; } = string.Empty;
     }
 
     /// <summary>
@@ -25,6 +35,15 @@ namespace NakuruTool.Services
     /// </summary>
     public static class ConfigManager
     {
+        #region イベント
+
+        /// <summary>
+        /// osu!フォルダパスが変更されたときに発生するイベント
+        /// </summary>
+        public static event EventHandler<string> OsuFolderPathChanged;
+
+        #endregion
+
         #region メンバ変数
         
         /// <summary>
@@ -67,20 +86,28 @@ namespace NakuruTool.Services
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine($"[ConfigManager] LoadConfig: ConfigFilePath = '{ConfigFilePath}'");
                 if (File.Exists(ConfigFilePath))
                 {
                     // 既存の設定ファイルを読み込み
                     var jsonString = File.ReadAllText(ConfigFilePath);
+                    System.Diagnostics.Debug.WriteLine($"[ConfigManager] LoadConfig: JSON content = '{jsonString}'");
                     _currentConfig = JsonSerializer.Deserialize<AppConfig>(jsonString);
                     
                     if (_currentConfig == null)
                     {
+                        System.Diagnostics.Debug.WriteLine("[ConfigManager] LoadConfig: Deserialized config is null, creating default");
                         _currentConfig = new AppConfig();
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[ConfigManager] LoadConfig: Loaded OsuFolderPath = '{_currentConfig.OsuFolderPath}'");
                     }
                 }
                 else
                 {
                     // 設定ファイルが存在しない場合はデフォルト設定を作成
+                    System.Diagnostics.Debug.WriteLine("[ConfigManager] LoadConfig: Config file does not exist, creating default");
                     _currentConfig = new AppConfig();
                     SaveConfig();
                 }
@@ -88,7 +115,7 @@ namespace NakuruTool.Services
             catch (Exception ex)
             {
                 // 設定ファイル読み込み失敗時はデフォルト設定を使用
-                System.Diagnostics.Debug.WriteLine($"Failed to load config: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"[ConfigManager] LoadConfig: Failed to load config: {ex.Message}");
                 _currentConfig = new AppConfig();
             }
         }
@@ -115,12 +142,26 @@ namespace NakuruTool.Services
         }
 
         /// <summary>
-        /// テーマ設定を更新し、設定ファイルに保存します
+        /// テーマ設定を更新し、設定ファイルに保存します（互換性のため保持）
         /// </summary>
         /// <param name="isDarkTheme">ダークテーマを使用するかどうか</param>
         public static void UpdateTheme(bool isDarkTheme)
         {
             CurrentConfig.IsDarkTheme = isDarkTheme;
+            // ThemeTypeも更新
+            CurrentConfig.ThemeType = isDarkTheme ? "Dark" : "Light";
+            SaveConfig();
+        }
+
+        /// <summary>
+        /// テーマタイプを更新し、設定ファイルに保存します
+        /// </summary>
+        /// <param name="themeType">テーマタイプ名</param>
+        public static void UpdateThemeType(string themeType)
+        {
+            CurrentConfig.ThemeType = themeType;
+            // 互換性のためIsDarkThemeも更新
+            CurrentConfig.IsDarkTheme = themeType == "Dark";
             SaveConfig();
         }
 
@@ -132,6 +173,26 @@ namespace NakuruTool.Services
         {
             CurrentConfig.CurrentLanguage = languageCode;
             SaveConfig();
+        }
+
+        /// <summary>
+        /// osu!フォルダパスを更新し、設定ファイルに保存します
+        /// </summary>
+        /// <param name="folderPath">osu!フォルダパス</param>
+        public static void UpdateOsuFolderPath(string folderPath)
+        {
+            var newPath = folderPath ?? string.Empty;
+            var oldPath = CurrentConfig.OsuFolderPath ?? string.Empty;
+            
+            if (oldPath != newPath)
+            {
+                CurrentConfig.OsuFolderPath = newPath;
+                SaveConfig();
+                
+                // イベントを発火
+                OsuFolderPathChanged?.Invoke(null, newPath);
+                System.Diagnostics.Debug.WriteLine($"[ConfigManager] OsuFolderPath changed: '{oldPath}' -> '{newPath}'");
+            }
         }
         
         #endregion

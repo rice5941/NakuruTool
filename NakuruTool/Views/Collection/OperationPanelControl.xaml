@@ -1,0 +1,74 @@
+<UserControl x:Class="NakuruTool.Views.Collection.OperationPanelControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:NakuruTool.ViewModels.Collection"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:OperationPanelViewModel}">
+    
+    <GroupBox Header="{DynamicResource Operations}" Margin="5">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="10">
+                <!-- コレクション操作セクション -->
+                <GroupBox Header="{DynamicResource Collections}" 
+                          BorderThickness="0" 
+                          Margin="0,0,0,10">
+                    <StackPanel>
+                        <Button Content="{DynamicResource LoadCollections}" 
+                                Command="{Binding LoadCollectionsCommand}"
+                                Background="{DynamicResource ButtonBackground}"
+                                Foreground="{DynamicResource ButtonForeground}"
+                                BorderBrush="{DynamicResource ButtonBorder}"
+                                Padding="10,5"
+                                Margin="0,5"/>
+                        
+                        <!-- 将来のボタン用スペース -->
+                        <Button Content="{DynamicResource ImportCollections}" 
+                                IsEnabled="False"
+                                Background="{DynamicResource ButtonBackground}"
+                                Foreground="{DynamicResource ButtonForeground}"
+                                BorderBrush="{DynamicResource ButtonBorder}"
+                                Padding="10,5"
+                                Margin="0,5"
+                                ToolTip="今後実装予定"/>
+                        
+                        <Button Content="{DynamicResource ExportCollections}" 
+                                IsEnabled="False"
+                                Background="{DynamicResource ButtonBackground}"
+                                Foreground="{DynamicResource ButtonForeground}"
+                                BorderBrush="{DynamicResource ButtonBorder}"
+                                Padding="10,5"
+                                Margin="0,5"
+                                ToolTip="今後実装予定"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- ステータス表示エリア -->
+                <GroupBox Header="{DynamicResource Status}" 
+                          BorderThickness="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- ローディングインジケーター -->
+                        <ProgressBar Grid.Row="0"
+                                     IsIndeterminate="{Binding IsLoading}"
+                                     Height="4"
+                                     Margin="0,0,0,5"
+                                     Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        
+                        <!-- ステータスメッセージ -->
+                        <TextBlock Grid.Row="1"
+                                   Text="{Binding StatusMessage}" 
+                                   TextWrapping="Wrap" 
+                                   FontSize="10"
+                                   Foreground="{DynamicResource TextForeground}"/>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </GroupBox>
+</UserControl>

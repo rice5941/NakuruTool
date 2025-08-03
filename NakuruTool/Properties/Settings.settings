@@ -3,5 +3,8 @@
   <Profiles />
   <Settings>
     <!-- 設定はConfigManager/config.jsonに統一のため、このファイルは最小構成とする -->
+    <Setting Name="OsuFolderPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

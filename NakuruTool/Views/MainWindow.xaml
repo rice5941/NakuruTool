@@ -6,9 +6,15 @@
     xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
     xmlns:v="clr-namespace:NakuruTool.Views"
     xmlns:vm="clr-namespace:NakuruTool.ViewModels"
+    xmlns:vc="clr-namespace:NakuruTool.Views.Collection"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
     Title="{DynamicResource AppTitle}"
-    Width="525"
-    Height="350">
+    Width="1200"
+    MinHeight="900"
+    Height="900">
 
     <Window.DataContext>
         <vm:MainWindowViewModel />
@@ -25,11 +31,12 @@
             <l:DataContextDisposeAction />
         </behaviors:EventTrigger>
 
+
         <!--  If you make user choose 'OK or Cancel' closing Window, then please use Window Close cancel Behavior.  -->
 
         <!-- ダイアログ表示用のメッセージトリガー -->
         <l:InteractionMessageTrigger MessageKey="ShowSettings" Messenger="{Binding Messenger}">
-            <l:TransitionInteractionMessageAction WindowType="{x:Type v:SettingsDialog}" Mode="Modal" />
+            <l:TransitionInteractionMessageAction WindowType="{x:Type v:SettingsDialog}" Mode="Modal" IsOwned="True" />
         </l:InteractionMessageTrigger>
 
     </behaviors:Interaction.Triggers>
@@ -41,7 +48,7 @@
         </Grid.RowDefinitions>
         
         <!-- ヘッダー部分 -->
-        <Grid Grid.Row="0" Margin="10">
+        <Grid Grid.Row="0" Margin="10,10,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>    <!-- アプリタイトル -->
                 <ColumnDefinition Width="*"/>       <!-- スペース -->
@@ -82,14 +89,17 @@
         </Grid>
         
         <!-- メインコンテンツ部分 -->
-        <Grid Grid.Row="1" Margin="10">
-            <TextBlock Text="{DynamicResource PrototypeText}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="14"
-                       Foreground="{DynamicResource TextForeground}"
-                       TextWrapping="Wrap"
-                       MaxWidth="400"/>
+        <Grid Grid.Row="1" Margin="10, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>   <!-- メインエリア -->
+                <RowDefinition Height="4*"/>    <!-- 曲リスト -->
+            </Grid.RowDefinitions>
+
+            <!-- メインエリア -->
+            <vc:CollectionListControl Grid.Row="0" x:Name="CollectionListControl" DataContext="{Binding}"/>
+            
+            <!-- 下部曲リスト -->
+            <vc:BeatmapDetailsControl Grid.Row="1" DataContext="{Binding}"/>
         </Grid>
     </Grid>
 </Window>

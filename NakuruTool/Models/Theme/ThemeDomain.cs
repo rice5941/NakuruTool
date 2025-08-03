@@ -110,16 +110,17 @@ namespace NakuruTool.Models.Theme
             }
         }
 
+
         /// <summary>
-        /// 指定されたテーマに設定します
+        /// 指定されたテーマタイプに設定します
         /// </summary>
-        /// <param name="isDarkTheme">ダークテーマを使用するかどうか</param>
+        /// <param name="themeType">テーマタイプ</param>
         /// <returns>設定に成功した場合はtrue</returns>
-        public bool SetTheme(bool isDarkTheme)
+        public bool SetTheme(ThemeType themeType)
         {
             try
             {
-                var newTheme = new Theme(isDarkTheme);
+                var newTheme = new Theme(themeType);
                 
                 if (_themeStore.SaveTheme(newTheme))
                 {
@@ -179,7 +180,8 @@ namespace NakuruTool.Models.Theme
                     var dict = mergedDictionaries[i];
                     if (dict.Source != null && 
                         (dict.Source.ToString().Contains("LightTheme.xaml") || 
-                         dict.Source.ToString().Contains("DarkTheme.xaml")))
+                         dict.Source.ToString().Contains("DarkTheme.xaml") ||
+                         dict.Source.ToString().Contains("OsuTheme.xaml")))
                     {
                         mergedDictionaries.RemoveAt(i);
                     }

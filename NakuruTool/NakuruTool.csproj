@@ -4,10 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="LivetCask" Version="4.0.1" />
+    <PackageReference Include="OsuParsers" Version="1.7.2" />
   </ItemGroup>
 
   <ItemGroup>

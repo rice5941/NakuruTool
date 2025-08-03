@@ -80,6 +80,19 @@
     <es>Tema oscuro</es>
   </DarkTheme>
 
+  <OsuTheme>
+    <ja>osu!テーマ</ja>
+    <en>osu! Theme</en>
+    <zh>osu!主题</zh>
+    <ko>osu! 테마</ko>
+    <tl>osu! Theme</tl>
+    <th>ธีม osu!</th>
+    <vi>Giao diện osu!</vi>
+    <de>osu! Thema</de>
+    <fr>Thème osu!</fr>
+    <es>Tema osu!</es>
+  </OsuTheme>
+
   <!-- 言語設定 -->
   <LanguageSettings>
     <ja>言語設定</ja>
@@ -278,4 +291,454 @@
     <fr>Español</fr>
     <es>Español</es>
   </Language_es>
+
+  <!-- コレクション表示機能 -->
+  <OwnedCollections>
+    <ja>所持コレクション</ja>
+    <en>Owned Collections</en>
+    <zh>拥有的收藏</zh>
+    <ko>보유 컬렉션</ko>
+    <tl>Mga Koleksyon na Pag-aari</tl>
+    <th>คอลเลกชันที่มี</th>
+    <vi>Bộ sưu tập sở hữu</vi>
+    <de>Eigene Sammlungen</de>
+    <fr>Collections possédées</fr>
+    <es>Colecciones propias</es>
+  </OwnedCollections>
+
+  <OwnedCollectionsWithCount>
+    <ja>所持コレクション ({0})</ja>
+    <en>Owned Collections ({0})</en>
+    <zh>拥有的收藏 ({0})</zh>
+    <ko>보유 컬렉션 ({0})</ko>
+    <tl>Mga Koleksyon na Pag-aari ({0})</tl>
+    <th>คอลเลกชันที่มี ({0})</th>
+    <vi>Bộ sưu tập sở hữu ({0})</vi>
+    <de>Eigene Sammlungen ({0})</de>
+    <fr>Collections possédées ({0})</fr>
+    <es>Colecciones propias ({0})</es>
+  </OwnedCollectionsWithCount>
+
+  <ImportList>
+    <ja>インポートリスト</ja>
+    <en>Import List</en>
+    <zh>导入列表</zh>
+    <ko>가져오기 목록</ko>
+    <tl>Listahan ng Import</tl>
+    <th>รายการนำเข้า</th>
+    <vi>Danh sách nhập</vi>
+    <de>Importliste</de>
+    <fr>Liste d'importation</fr>
+    <es>Lista de importación</es>
+  </ImportList>
+
+  <Operations>
+    <ja>操作</ja>
+    <en>Operations</en>
+    <zh>操作</zh>
+    <ko>작업</ko>
+    <tl>Mga Operasyon</tl>
+    <th>การดำเนินการ</th>
+    <vi>Thao tác</vi>
+    <de>Operationen</de>
+    <fr>Opérations</fr>
+    <es>Operaciones</es>
+  </Operations>
+
+  <BeatmapDetails>
+    <ja>ビートマップ詳細</ja>
+    <en>Beatmap Details</en>
+    <zh>谱面详情</zh>
+    <ko>비트맵 상세</ko>
+    <tl>Mga Detalye ng Beatmap</tl>
+    <th>รายละเอียดบีทแมพ</th>
+    <vi>Chi tiết Beatmap</vi>
+    <de>Beatmap-Details</de>
+    <fr>Détails de la beatmap</fr>
+    <es>Detalles del beatmap</es>
+  </BeatmapDetails>
+
+  <SelectFolder>
+    <ja>フォルダ選択</ja>
+    <en>Select Folder</en>
+    <zh>选择文件夹</zh>
+    <ko>폴더 선택</ko>
+    <tl>Pumili ng Folder</tl>
+    <th>เลือกโฟลเดอร์</th>
+    <vi>Chọn thư mục</vi>
+    <de>Ordner auswählen</de>
+    <fr>Sélectionner un dossier</fr>
+    <es>Seleccionar carpeta</es>
+  </SelectFolder>
+
+  <LoadCollections>
+    <ja>コレクション読み込み</ja>
+    <en>Load Collections</en>
+    <zh>加载收藏</zh>
+    <ko>컬렉션 로드</ko>
+    <tl>I-load ang mga Koleksyon</tl>
+    <th>โหลดคอลเลกชัน</th>
+    <vi>Tải bộ sưu tập</vi>
+    <de>Sammlungen laden</de>
+    <fr>Charger les collections</fr>
+    <es>Cargar colecciones</es>
+  </LoadCollections>
+
+  <ImportCollections>
+    <ja>コレクションインポート</ja>
+    <en>Import Collections</en>
+    <zh>导入收藏</zh>
+    <ko>컬렉션 가져오기</ko>
+    <tl>Mag-import ng mga Koleksyon</tl>
+    <th>นำเข้าคอลเลกชัน</th>
+    <vi>Nhập bộ sưu tập</vi>
+    <de>Sammlungen importieren</de>
+    <fr>Importer les collections</fr>
+    <es>Importar colecciones</es>
+  </ImportCollections>
+
+  <ExportCollections>
+    <ja>コレクションエクスポート</ja>
+    <en>Export Collections</en>
+    <zh>导出收藏</zh>
+    <ko>컬렉션 내보내기</ko>
+    <tl>I-export ang mga Koleksyon</tl>
+    <th>ส่งออกคอลเลกชัน</th>
+    <vi>Xuất bộ sưu tập</vi>
+    <de>Sammlungen exportieren</de>
+    <fr>Exporter les collections</fr>
+    <es>Exportar colecciones</es>
+  </ExportCollections>
+
+  <Collections>
+    <ja>コレクション</ja>
+    <en>Collections</en>
+    <zh>收藏</zh>
+    <ko>컬렉션</ko>
+    <tl>Mga Koleksyon</tl>
+    <th>คอลเลกชัน</th>
+    <vi>Bộ sưu tập</vi>
+    <de>Sammlungen</de>
+    <fr>Collections</fr>
+    <es>Colecciones</es>
+  </Collections>
+
+  <Status>
+    <ja>ステータス</ja>
+    <en>Status</en>
+    <zh>状态</zh>
+    <ko>상태</ko>
+    <tl>Katayuan</tl>
+    <th>สถานะ</th>
+    <vi>Trạng thái</vi>
+    <de>Status</de>
+    <fr>Statut</fr>
+    <es>Estado</es>
+  </Status>
+
+  <!-- ステータスメッセージ -->
+  <PleaseSelectOsuFolder>
+    <ja>osu!フォルダを選択してコレクションを読み込んでください</ja>
+    <en>Please select osu! folder to load collections</en>
+    <zh>请选择osu!文件夹以加载收藏</zh>
+    <ko>컬렉션을 로드하려면 osu! 폴더를 선택하세요</ko>
+    <tl>Pakipili ang osu! folder para i-load ang mga koleksyon</tl>
+    <th>กรุณาเลือกโฟลเดอร์ osu! เพื่อโหลดคอลเลกชัน</th>
+    <vi>Vui lòng chọn thư mục osu! để tải bộ sưu tập</vi>
+    <de>Bitte wählen Sie den osu! Ordner aus, um Sammlungen zu laden</de>
+    <fr>Veuillez sélectionner le dossier osu! pour charger les collections</fr>
+    <es>Por favor seleccione la carpeta osu! para cargar las colecciones</es>
+  </PleaseSelectOsuFolder>
+
+  <PleaseSelectOsuFolderFromSettings>
+    <ja>設定からosu!フォルダを選択してください</ja>
+    <en>Please select osu! folder from settings</en>
+    <zh>请从设置中选择osu!文件夹</zh>
+    <ko>설정에서 osu! 폴더를 선택하세요</ko>
+    <tl>Pakipili ang osu! folder mula sa mga setting</tl>
+    <th>กรุณาเลือกโฟลเดอร์ osu! จากการตั้งค่า</th>
+    <vi>Vui lòng chọn thư mục osu! từ cài đặt</vi>
+    <de>Bitte wählen Sie den osu! Ordner in den Einstellungen aus</de>
+    <fr>Veuillez sélectionner le dossier osu! dans les paramètres</fr>
+    <es>Por favor seleccione la carpeta osu! desde la configuración</es>
+  </PleaseSelectOsuFolderFromSettings>
+
+  <LoadingCollections>
+    <ja>コレクションを読み込み中...</ja>
+    <en>Loading collections...</en>
+    <zh>正在加载收藏...</zh>
+    <ko>컬렉션 로딩 중...</ko>
+    <tl>Naglo-load ng mga koleksyon...</tl>
+    <th>กำลังโหลดคอลเลกชัน...</th>
+    <vi>Đang tải bộ sưu tập...</vi>
+    <de>Lade Sammlungen...</de>
+    <fr>Chargement des collections...</fr>
+    <es>Cargando colecciones...</es>
+  </LoadingCollections>
+
+  <CollectionsLoadedCount>
+    <ja>{0}個のコレクションを読み込みました</ja>
+    <en>Loaded {0} collections</en>
+    <zh>已加载{0}个收藏</zh>
+    <ko>{0}개의 컬렉션을 로드했습니다</ko>
+    <tl>Na-load ang {0} koleksyon</tl>
+    <th>โหลดคอลเลกชัน {0} รายการแล้ว</th>
+    <vi>Đã tải {0} bộ sưu tập</vi>
+    <de>{0} Sammlungen geladen</de>
+    <fr>{0} collections chargées</fr>
+    <es>{0} colecciones cargadas</es>
+  </CollectionsLoadedCount>
+
+  <ErrorLoadingCollections>
+    <ja>コレクションの読み込みに失敗しました。\n\n{0}</ja>
+    <en>Failed to load collections.\n\n{0}</en>
+    <zh>无法加载收藏。\n\n{0}</zh>
+    <ko>컬렉션을 로드하는데 실패했습니다.\n\n{0}</ko>
+    <tl>Nabigong mag-load ng mga koleksyon.\n\n{0}</tl>
+    <th>ไม่สามารถโหลดคอลเลกชันได้\n\n{0}</th>
+    <vi>Không thể tải bộ sưu tập.\n\n{0}</vi>
+    <de>Fehler beim Laden der Sammlungen.\n\n{0}</de>
+    <fr>Échec du chargement des collections.\n\n{0}</fr>
+    <es>Error al cargar las colecciones.\n\n{0}</es>
+  </ErrorLoadingCollections>
+
+  <Error>
+    <ja>エラー</ja>
+    <en>Error</en>
+    <zh>错误</zh>
+    <ko>오류</ko>
+    <tl>Error</tl>
+    <th>ข้อผิดพลาด</th>
+    <vi>Lỗi</vi>
+    <de>Fehler</de>
+    <fr>Erreur</fr>
+    <es>Error</es>
+  </Error>
+
+  <!-- DataGridヘッダー -->
+  <Title>
+    <ja>Title</ja>
+    <en>Title</en>
+    <zh>标题</zh>
+    <ko>제목</ko>
+    <tl>Pamagat</tl>
+    <th>ชื่อ</th>
+    <vi>Tiêu đề</vi>
+    <de>Titel</de>
+    <fr>Titre</fr>
+    <es>Título</es>
+  </Title>
+
+  <Artist>
+    <ja>Artist</ja>
+    <en>Artist</en>
+    <zh>艺术家</zh>
+    <ko>아티스트</ko>
+    <tl>Artist</tl>
+    <th>ศิลปิน</th>
+    <vi>Nghệ sĩ</vi>
+    <de>Künstler</de>
+    <fr>Artiste</fr>
+    <es>Artista</es>
+  </Artist>
+
+  <Version>
+    <ja>Version</ja>
+    <en>Version</en>
+    <zh>版本</zh>
+    <ko>버전</ko>
+    <tl>Bersyon</tl>
+    <th>เวอร์ชัน</th>
+    <vi>Phiên bản</vi>
+    <de>Version</de>
+    <fr>Version</fr>
+    <es>Versión</es>
+  </Version>
+
+  <Creator>
+    <ja>Creator</ja>
+    <en>Creator</en>
+    <zh>创作者</zh>
+    <ko>제작자</ko>
+    <tl>Lumikha</tl>
+    <th>ผู้สร้าง</th>
+    <vi>Người tạo</vi>
+    <de>Ersteller</de>
+    <fr>Créateur</fr>
+    <es>Creador</es>
+  </Creator>
+
+  <!-- フォルダ選択ダイアログ -->
+  <SelectOsuFolderDialog>
+    <ja>osu!フォルダを選択してください</ja>
+    <en>Please select osu! folder</en>
+    <zh>请选择osu!文件夹</zh>
+    <ko>osu! 폴더를 선택하세요</ko>
+    <tl>Pakipili ang osu! folder</tl>
+    <th>กรุณาเลือกโฟลเดอร์ osu!</th>
+    <vi>Vui lòng chọn thư mục osu!</vi>
+    <de>Bitte wählen Sie den osu! Ordner aus</de>
+    <fr>Veuillez sélectionner le dossier osu!</fr>
+    <es>Por favor seleccione la carpeta osu!</es>
+  </SelectOsuFolderDialog>
+
+  <!-- 曲数表示 -->
+  <SongCount>
+    <ja>曲</ja>
+    <en>songs</en>
+    <zh>首歌曲</zh>
+    <ko>곡</ko>
+    <tl>kanta</tl>
+    <th>เพลง</th>
+    <vi>bài hát</vi>
+    <de>Songs</de>
+    <fr>chansons</fr>
+    <es>canciones</es>
+  </SongCount>
+
+  <!-- ファイル読み込みエラーメッセージ -->
+  <OsuFolderPathNotSpecified>
+    <ja>osu!フォルダパスが指定されていません</ja>
+    <en>osu! folder path is not specified</en>
+    <zh>未指定osu!文件夹路径</zh>
+    <ko>osu! 폴더 경로가 지정되지 않았습니다</ko>
+    <tl>Hindi nakatukoy ang osu! folder path</tl>
+    <th>ไม่ได้ระบุเส้นทางโฟลเดอร์ osu!</th>
+    <vi>Đường dẫn thư mục osu! không được chỉ định</vi>
+    <de>osu! Ordnerpfad ist nicht angegeben</de>
+    <fr>Le chemin du dossier osu! n'est pas spécifié</fr>
+    <es>No se especificó la ruta de la carpeta osu!</es>
+  </OsuFolderPathNotSpecified>
+
+  <FilePathNotSpecified>
+    <ja>ファイルパスが指定されていません</ja>
+    <en>File path is not specified</en>
+    <zh>未指定文件路径</zh>
+    <ko>파일 경로가 지정되지 않았습니다</ko>
+    <tl>Hindi nakatukoy ang file path</tl>
+    <th>ไม่ได้ระบุเส้นทางไฟล์</th>
+    <vi>Đường dẫn tệp không được chỉ định</vi>
+    <de>Dateipfad ist nicht angegeben</de>
+    <fr>Le chemin du fichier n'est pas spécifié</fr>
+    <es>No se especificó la ruta del archivo</es>
+  </FilePathNotSpecified>
+
+  <CollectionDbNotFound>
+    <ja>collection.dbファイルが見つかりません: {0}</ja>
+    <en>collection.db file not found: {0}</en>
+    <zh>找不到collection.db文件: {0}</zh>
+    <ko>collection.db 파일을 찾을 수 없습니다: {0}</ko>
+    <tl>Hindi natagpuan ang collection.db file: {0}</tl>
+    <th>ไม่พบไฟล์ collection.db: {0}</th>
+    <vi>Không tìm thấy tệp collection.db: {0}</vi>
+    <de>collection.db Datei nicht gefunden: {0}</de>
+    <fr>Fichier collection.db introuvable: {0}</fr>
+    <es>Archivo collection.db no encontrado: {0}</es>
+  </CollectionDbNotFound>
+
+  <OsuDbNotFound>
+    <ja>osu!.dbファイルが見つかりません: {0}</ja>
+    <en>osu!.db file not found: {0}</en>
+    <zh>找不到osu!.db文件: {0}</zh>
+    <ko>osu!.db 파일을 찾을 수 없습니다: {0}</ko>
+    <tl>Hindi natagpuan ang osu!.db file: {0}</tl>
+    <th>ไม่พบไฟล์ osu!.db: {0}</th>
+    <vi>Không tìm thấy tệp osu!.db: {0}</vi>
+    <de>osu!.db Datei nicht gefunden: {0}</de>
+    <fr>Fichier osu!.db introuvable: {0}</fr>
+    <es>Archivo osu!.db no encontrado: {0}</es>
+  </OsuDbNotFound>
+
+  <InvalidStringPrefix>
+    <ja>無効な文字列プレフィックス: 0x{0:X2}</ja>
+    <en>Invalid string prefix: 0x{0:X2}</en>
+    <zh>无效的字符串前缀: 0x{0:X2}</zh>
+    <ko>잘못된 문자열 접두사: 0x{0:X2}</ko>
+    <tl>Hindi wastong string prefix: 0x{0:X2}</tl>
+    <th>คำนำหน้าสตริงไม่ถูกต้อง: 0x{0:X2}</th>
+    <vi>Tiền tố chuỗi không hợp lệ: 0x{0:X2}</vi>
+    <de>Ungültiges String-Präfix: 0x{0:X2}</de>
+    <fr>Préfixe de chaîne invalide: 0x{0:X2}</fr>
+    <es>Prefijo de cadena inválido: 0x{0:X2}</es>
+  </InvalidStringPrefix>
+
+  <CollectionSaveNotImplemented>
+    <ja>コレクション保存機能は未実装です</ja>
+    <en>Collection save functionality is not implemented</en>
+    <zh>收藏保存功能尚未实现</zh>
+    <ko>컬렉션 저장 기능이 구현되지 않았습니다</ko>
+    <tl>Hindi pa naipatupad ang collection save functionality</tl>
+    <th>ยังไม่ได้พัฒนาฟังก์ชันการบันทึกคอลเลกชัน</th>
+    <vi>Chức năng lưu bộ sưu tập chưa được triển khai</vi>
+    <de>Collection-Speicherfunktion ist nicht implementiert</de>
+    <fr>La fonctionnalité de sauvegarde des collections n'est pas implémentée</fr>
+    <es>La funcionalidad de guardar colecciones no está implementada</es>
+  </CollectionSaveNotImplemented>
+
+  <Unknown>
+    <ja>不明</ja>
+    <en>Unknown</en>
+    <zh>未知</zh>
+    <ko>알 수 없음</ko>
+    <tl>Hindi kilala</tl>
+    <th>ไม่ทราบ</th>
+    <vi>Không rõ</vi>
+    <de>Unbekannt</de>
+    <fr>Inconnu</fr>
+    <es>Desconocido</es>
+  </Unknown>
+
+  <!-- フォルダ検証エラーメッセージ -->
+  <InvalidOsuFolder>
+    <ja>選択されたフォルダは有効なosu!フォルダではありません。\n\n必要なファイルが見つかりません:\n{0}</ja>
+    <en>The selected folder is not a valid osu! folder.\n\nRequired files not found:\n{0}</en>
+    <zh>所选文件夹不是有效的osu!文件夹。\n\n找不到必需的文件:\n{0}</zh>
+    <ko>선택된 폴더가 유효한 osu! 폴더가 아닙니다.\n\n필요한 파일을 찾을 수 없습니다:\n{0}</ko>
+    <tl>Ang napiling folder ay hindi wastong osu! folder.\n\nHindi natagpuan ang mga kinakailangang file:\n{0}</tl>
+    <th>โฟลเดอร์ที่เลือกไม่ใช่โฟลเดอร์ osu! ที่ถูกต้อง\n\nไม่พบไฟล์ที่จำเป็น:\n{0}</th>
+    <vi>Thư mục đã chọn không phải là thư mục osu! hợp lệ.\n\nKhông tìm thấy các tệp cần thiết:\n{0}</vi>
+    <de>Der ausgewählte Ordner ist kein gültiger osu! Ordner.\n\nBenötigte Dateien nicht gefunden:\n{0}</de>
+    <fr>Le dossier sélectionné n'est pas un dossier osu! valide.\n\nFichiers requis introuvables:\n{0}</fr>
+    <es>La carpeta seleccionada no es una carpeta osu! válida.\n\nArchivos requeridos no encontrados:\n{0}</es>
+  </InvalidOsuFolder>
+
+  <FolderValidationFailed>
+    <ja>フォルダの検証に失敗しました</ja>
+    <en>Folder validation failed</en>
+    <zh>文件夹验证失败</zh>
+    <ko>폴더 검증에 실패했습니다</ko>
+    <tl>Nabigo ang pag-validate ng folder</tl>
+    <th>การตรวจสอบโฟลเดอร์ล้มเหลว</th>
+    <vi>Xác thực thư mục thất bại</vi>
+    <de>Ordnervalidierung fehlgeschlagen</de>
+    <fr>Échec de la validation du dossier</fr>
+    <es>Falló la validación de la carpeta</es>
+  </FolderValidationFailed>
+
+  <!-- 検索ボックスプレースホルダー -->
+  <SearchCollectionsPlaceholder>
+    <ja>コレクションを検索...</ja>
+    <en>Search collections...</en>
+    <zh>搜索收藏...</zh>
+    <ko>컬렉션 검색...</ko>
+    <tl>Maghanap ng mga koleksyon...</tl>
+    <th>ค้นหาคอลเลกชัน...</th>
+    <vi>Tìm kiếm bộ sưu tập...</vi>
+    <de>Sammlungen suchen...</de>
+    <fr>Rechercher des collections...</fr>
+    <es>Buscar colecciones...</es>
+  </SearchCollectionsPlaceholder>
+
+  <SearchBeatmapsPlaceholder>
+    <ja>曲を検索（タイトル、アーティスト、作成者、難易度名）...</ja>
+    <en>Search songs (title, artist, creator, difficulty name)...</en>
+    <zh>搜索歌曲（标题、艺术家、制作者、难度名称）...</zh>
+    <ko>곡 검색 (제목, 아티스트, 제작자, 난이도명)...</ko>
+    <tl>Maghanap ng mga kanta (pamagat, artist, creator, difficulty name)...</tl>
+    <th>ค้นหาเพลง (ชื่อเรื่อง, ศิลปิน, ผู้สร้าง, ชื่อความยาก)...</th>
+    <vi>Tìm kiếm bài hát (tiêu đề, nghệ sĩ, người tạo, tên độ khó)...</vi>
+    <de>Songs suchen (Titel, Künstler, Ersteller, Schwierigkeitsname)...</de>
+    <fr>Rechercher des chansons (titre, artiste, créateur, nom de difficulté)...</fr>
+    <es>Buscar canciones (título, artista, creador, nombre de dificultad)...</es>
+  </SearchBeatmapsPlaceholder>
 </Languages>

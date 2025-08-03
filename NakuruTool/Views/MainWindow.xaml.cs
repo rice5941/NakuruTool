@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NakuruTool.ViewModels;
+using NakuruTool.ViewModels.Collection;
 
 namespace NakuruTool.Views
 {
@@ -23,9 +25,73 @@ namespace NakuruTool.Views
      */
     public partial class MainWindow : Window
     {
+        #region コンストラクタ
+
         public MainWindow()
         {
             InitializeComponent();
+            InitializeEvents();
         }
+
+        #endregion
+
+        #region 関数
+
+        /// <summary>
+        /// イベントを初期化します
+        /// </summary>
+        private void InitializeEvents()
+        {
+            // CollectionListControlのイベントをMainWindowViewModelに転送
+            CollectionListControl.CollectionsLoaded += OnCollectionListControlCollectionsLoaded;
+            CollectionListControl.CollectionLoadError += OnCollectionListControlCollectionLoadError;
+        }
+
+
+        /// <summary>
+        /// コレクション読み込み完了時の処理
+        /// </summary>
+        /// <param name="sender">送信者</param>
+        /// <param name="e">イベント引数</param>
+        private void OnCollectionListControlCollectionsLoaded(object sender, CollectionsLoadedEventArgs e)
+        {
+            if (DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.OnCollectionsLoaded(e.Collections);
+            }
+        }
+
+        /// <summary>
+        /// コレクション読み込みエラー時の処理
+        /// </summary>
+        /// <param name="sender">送信者</param>
+        /// <param name="e">イベント引数</param>
+        private void OnCollectionListControlCollectionLoadError(object sender, CollectionLoadErrorEventArgs e)
+        {
+            if (DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.OnCollectionLoadError(e.Exception);
+            }
+        }
+
+
+
+        /// <summary>
+        /// ウィンドウクローズ時のクリーンアップ
+        /// </summary>
+        /// <param name="e">イベント引数</param>
+        protected override void OnClosed(EventArgs e)
+        {
+            // イベントハンドラを解除
+            if (CollectionListControl != null)
+            {
+                CollectionListControl.CollectionsLoaded -= OnCollectionListControlCollectionsLoaded;
+                CollectionListControl.CollectionLoadError -= OnCollectionListControlCollectionLoadError;
+            }
+            
+            base.OnClosed(e);
+        }
+
+        #endregion
     }
 }

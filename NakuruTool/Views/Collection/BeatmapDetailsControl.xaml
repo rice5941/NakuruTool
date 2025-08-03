@@ -1,0 +1,95 @@
+<UserControl x:Class="NakuruTool.Views.Collection.BeatmapDetailsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:NakuruTool.ViewModels"
+             xmlns:vmc="clr-namespace:NakuruTool.ViewModels.Collection"
+             xmlns:controls="clr-namespace:NakuruTool.Views.Controls"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:MainWindowViewModel}">
+    
+    <GroupBox Header="{DynamicResource BeatmapDetails}" Margin="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <!-- 曲検索 -->
+            <controls:SearchTextBox Grid.Row="0" 
+                                   Margin="5"
+                                   SearchText="{Binding BeatmapDetails.BeatmapFilterText, UpdateSourceTrigger=PropertyChanged}"
+                                   PlaceholderText="{DynamicResource SearchBeatmapsPlaceholder}"/>
+            
+            <!-- ビートマップリスト -->
+            <DataGrid Grid.Row="1"
+                     ItemsSource="{Binding BeatmapDetails.Beatmaps}" 
+                     AutoGenerateColumns="False"
+                     IsReadOnly="True"
+                     GridLinesVisibility="Horizontal"
+                     HeadersVisibility="Column"
+                     Margin="5,0,5,5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{DynamicResource Title}" Binding="{Binding Title}" Width="*"/>
+                    <DataGridTextColumn Header="{DynamicResource Artist}" Binding="{Binding Artist}" Width="*"/>
+                    <DataGridTextColumn Header="{DynamicResource Version}" Binding="{Binding Version}" Width="*"/>
+                    <DataGridTextColumn Header="{DynamicResource Creator}" Binding="{Binding Creator}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+            <!-- ページング操作部 -->
+            <Border Grid.Row="2" 
+                   Background="{DynamicResource WindowBackground}" 
+                   BorderBrush="{DynamicResource BorderBrush}" 
+                   BorderThickness="0,1,0,0" 
+                   Padding="10,5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- ページング情報 -->
+                    <TextBlock Grid.Column="0" 
+                              Text="{Binding BeatmapDetails.PagingInfo}" 
+                              Foreground="{DynamicResource TextForeground}"
+                              VerticalAlignment="Center"
+                              FontSize="12"/>
+                    
+                    <!-- ページング操作ボタン -->
+                    <StackPanel Grid.Column="2" 
+                               Orientation="Horizontal" 
+                               HorizontalAlignment="Right">
+                        <Button Content="≪" 
+                               Command="{Binding BeatmapDetails.FirstPageCommand}"
+                               ToolTip="最初のページ"
+                               MinWidth="30" 
+                               Height="26" 
+                               Margin="2,0"/>
+                        <Button Content="&lt;" 
+                               Command="{Binding BeatmapDetails.PreviousPageCommand}"
+                               ToolTip="前のページ"
+                               MinWidth="30" 
+                               Height="26" 
+                               Margin="2,0"/>
+                        <Button Content="&gt;" 
+                               Command="{Binding BeatmapDetails.NextPageCommand}"
+                               ToolTip="次のページ"
+                               MinWidth="30" 
+                               Height="26" 
+                               Margin="2,0"/>
+                        <Button Content="≫" 
+                               Command="{Binding BeatmapDetails.LastPageCommand}"
+                               ToolTip="最後のページ"
+                               MinWidth="30" 
+                               Height="26" 
+                               Margin="2,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </GroupBox>
+</UserControl>

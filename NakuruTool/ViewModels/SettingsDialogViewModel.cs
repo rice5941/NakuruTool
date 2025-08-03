@@ -49,11 +49,10 @@ namespace NakuruTool.ViewModels
             {
                 if (value && _currentThemeType != ThemeType.Light)
                 {
-                    _currentThemeType = ThemeType.Light;
-                    RaisePropertyChanged();
-                    RaisePropertyChanged(nameof(IsDarkTheme));
-                    RaisePropertyChanged(nameof(IsOsuTheme));
-                    ApplyTheme();
+                    if (RaisePropertyChangedIfSet(ref _currentThemeType, ThemeType.Light, new[] { nameof(IsLightTheme), nameof(IsDarkTheme), nameof(IsOsuTheme) }))
+                    {
+                        ApplyTheme();
+                    }
                 }
             }
         }
@@ -68,11 +67,10 @@ namespace NakuruTool.ViewModels
             {
                 if (value && _currentThemeType != ThemeType.Dark)
                 {
-                    _currentThemeType = ThemeType.Dark;
-                    RaisePropertyChanged();
-                    RaisePropertyChanged(nameof(IsLightTheme));
-                    RaisePropertyChanged(nameof(IsOsuTheme));
-                    ApplyTheme();
+                    if (RaisePropertyChangedIfSet(ref _currentThemeType, ThemeType.Dark, new[] { nameof(IsLightTheme), nameof(IsDarkTheme), nameof(IsOsuTheme) }))
+                    {
+                        ApplyTheme();
+                    }
                 }
             }
         }
@@ -87,11 +85,10 @@ namespace NakuruTool.ViewModels
             {
                 if (value && _currentThemeType != ThemeType.Osu)
                 {
-                    _currentThemeType = ThemeType.Osu;
-                    RaisePropertyChanged();
-                    RaisePropertyChanged(nameof(IsLightTheme));
-                    RaisePropertyChanged(nameof(IsDarkTheme));
-                    ApplyTheme();
+                    if (RaisePropertyChangedIfSet(ref _currentThemeType, ThemeType.Osu, new[] { nameof(IsLightTheme), nameof(IsDarkTheme), nameof(IsOsuTheme) }))
+                    {
+                        ApplyTheme();
+                    }
                 }
             }
         }
@@ -104,12 +101,7 @@ namespace NakuruTool.ViewModels
             get { return _osuFolderPath; }
             set
             {
-                if (_osuFolderPath == value)
-                {
-                    return;
-                }
-                _osuFolderPath = value;
-                RaisePropertyChanged();
+                RaisePropertyChangedIfSet(ref _osuFolderPath, value);
             }
         }
 

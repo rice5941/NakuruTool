@@ -53,12 +53,6 @@ namespace NakuruTool.ViewModels
             _filteredCollections = new ObservableCollection<CollectionViewModel>();
             _beatmapDetails = new BeatmapDetailsViewModel();
             _collectionFilterText = string.Empty;
-            var initMessage = LanguageManager.GetString("PleaseSelectOsuFolderFromSettings");
-            if (string.IsNullOrEmpty(initMessage) || initMessage == "PleaseSelectOsuFolderFromSettings")
-            {
-                initMessage = "設定からosu!フォルダを選択してください";
-            }
-            _statusMessage = initMessage;
 
             // 操作パネルViewModelを初期化
             InitializeOperationPanelViewModel();
@@ -76,20 +70,16 @@ namespace NakuruTool.ViewModels
             get { return _selectedLanguage; }
             set
             {
-                if (_selectedLanguage == value)
+                if (RaisePropertyChangedIfSet(ref _selectedLanguage, value))
                 {
-                    return;
-                }
-                _selectedLanguage = value;
-                RaisePropertyChanged();
-                
-                // 言語を変更
-                if ((string.IsNullOrEmpty(value) == false) && (LanguageManager.CurrentLanguage != value))
-                {
-                    LanguageManager.ChangeLanguage(value);
-                    
-                    // 利用可能な言語リストを更新（表示名が変わるため）
-                    UpdateLanguageDisplayNames();
+                    // 言語を変更
+                    if ((string.IsNullOrEmpty(value) == false) && (LanguageManager.CurrentLanguage != value))
+                    {
+                        LanguageManager.ChangeLanguage(value);
+                        
+                        // 利用可能な言語リストを更新（表示名が変わるため）
+                        UpdateLanguageDisplayNames();
+                    }
                 }
             }
         }
@@ -102,12 +92,7 @@ namespace NakuruTool.ViewModels
             get { return _availableLanguages; }
             set
             {
-                if (_availableLanguages == value)
-                {
-                    return;
-                }
-                _availableLanguages = value;
-                RaisePropertyChanged();
+                RaisePropertyChangedIfSet(ref _availableLanguages, value);
             }
         }
 
@@ -119,13 +104,7 @@ namespace NakuruTool.ViewModels
             get { return _collections; }
             set
             {
-                if (_collections == value)
-                {
-                    return;
-                }
-                _collections = value;
-                RaisePropertyChanged();
-                RaisePropertyChanged(nameof(OwnedCollectionsHeader));
+                RaisePropertyChangedIfSet(ref _collections, value, nameof(OwnedCollectionsHeader));
             }
         }
 
@@ -137,12 +116,7 @@ namespace NakuruTool.ViewModels
             get { return _filteredCollections; }
             set
             {
-                if (_filteredCollections == value)
-                {
-                    return;
-                }
-                _filteredCollections = value;
-                RaisePropertyChanged();
+                RaisePropertyChangedIfSet(ref _filteredCollections, value);
             }
         }
 
@@ -154,13 +128,10 @@ namespace NakuruTool.ViewModels
             get { return _collectionFilterText; }
             set
             {
-                if (_collectionFilterText == value)
+                if (RaisePropertyChangedIfSet(ref _collectionFilterText, value))
                 {
-                    return;
+                    ApplyCollectionFilter();
                 }
-                _collectionFilterText = value;
-                RaisePropertyChanged();
-                ApplyCollectionFilter();
             }
         }
 
@@ -201,13 +172,10 @@ namespace NakuruTool.ViewModels
             get { return _selectedCollection; }
             set
             {
-                if (_selectedCollection == value)
+                if (RaisePropertyChangedIfSet(ref _selectedCollection, value))
                 {
-                    return;
+                    OnCollectionSelected();
                 }
-                _selectedCollection = value;
-                RaisePropertyChanged();
-                OnCollectionSelected();
             }
         }
 
@@ -219,12 +187,7 @@ namespace NakuruTool.ViewModels
             get { return _beatmapDetails; }
             set
             {
-                if (_beatmapDetails == value)
-                {
-                    return;
-                }
-                _beatmapDetails = value;
-                RaisePropertyChanged();
+                RaisePropertyChangedIfSet(ref _beatmapDetails, value);
             }
         }
 
@@ -236,59 +199,11 @@ namespace NakuruTool.ViewModels
             get { return _operationPanelViewModel; }
             set
             {
-                if (_operationPanelViewModel == value)
-                {
-                    return;
-                }
-                _operationPanelViewModel = value;
-                RaisePropertyChanged();
+                RaisePropertyChangedIfSet(ref _operationPanelViewModel, value);
             }
         }
 
-        /// <summary>
-        /// 読み込み状態（操作パネルから情報を受け取る用）
-        /// </summary>
-        public bool IsLoading
-        {
-            get { return _isLoading; }
-            set
-            {
-                if (_isLoading == value)
-                {
-                    return;
-                }
-                _isLoading = value;
-                RaisePropertyChanged();
-            }
-        }
 
-        /// <summary>
-        /// ステータスメッセージ
-        /// </summary>
-        public string StatusMessage
-        {
-            get { return _statusMessage; }
-            set
-            {
-                if (_statusMessage == value)
-                {
-                    return;
-                }
-                _statusMessage = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// osu!フォルダパス（設定から取得）
-        /// </summary>
-        public string OsuFolderPath 
-        { 
-            get 
-            { 
-                return ConfigManager.CurrentConfig.OsuFolderPath ?? string.Empty;
-            } 
-        }
 
         /// <summary>
         /// 設定表示コマンド
@@ -319,27 +234,6 @@ namespace NakuruTool.ViewModels
             
             // 初期フィルタを適用
             ApplyCollectionFilter();
-            
-            // 言語リソースが読み込まれた後にステータスメッセージを更新
-            if (string.IsNullOrEmpty(OsuFolderPath))
-            {
-                var settingsMessage = LanguageManager.GetString("PleaseSelectOsuFolderFromSettings");
-                if ((string.IsNullOrEmpty(settingsMessage) == false) && (settingsMessage != "PleaseSelectOsuFolderFromSettings"))
-                {
-                    StatusMessage = settingsMessage;
-                }
-                else
-                {
-                    StatusMessage = "設定からosu!フォルダを選択してください";
-                }
-            }
-            
-            // ConfigManagerのOsuFolderPath変更イベントを監視
-            ConfigManager.OsuFolderPathChanged += OnConfigManagerOsuFolderPathChanged;
-            
-            // OsuFolderPathの変更を明示的に通知（UIバインディング用）
-            System.Diagnostics.Debug.WriteLine($"[MainWindowViewModel] Initialize: Raising PropertyChanged for OsuFolderPath = '{OsuFolderPath}'");
-            RaisePropertyChanged(nameof(OsuFolderPath));
         }
 
         /// <summary>
@@ -375,21 +269,6 @@ namespace NakuruTool.ViewModels
         }
 
 
-        /// <summary>
-        /// ConfigManagerのOsuFolderPath変更時の処理
-        /// </summary>
-        /// <param name="sender">送信者</param>
-        /// <param name="newPath">新しいosu!フォルダパス</param>
-        private void OnConfigManagerOsuFolderPathChanged(object sender, string newPath)
-        {
-            System.Diagnostics.Debug.WriteLine($"[MainWindowViewModel] OnConfigManagerOsuFolderPathChanged: '{newPath}'");
-            
-            // UIスレッドで実行
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                RaisePropertyChanged(nameof(OsuFolderPath));
-            });
-        }
 
 
         /// <summary>
@@ -541,7 +420,6 @@ namespace NakuruTool.ViewModels
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Failed to apply collection filter: {ex.Message}");
-                StatusMessage = "フィルタ適用でエラーが発生しました";
             }
         }
 
@@ -557,9 +435,6 @@ namespace NakuruTool.ViewModels
         {
             if (disposing)
             {
-                // ConfigManagerのイベントハンドラを解除
-                ConfigManager.OsuFolderPathChanged -= OnConfigManagerOsuFolderPathChanged;
-                
                 // 操作パネルViewModelのイベントハンドラを解除
                 if (_operationPanelViewModel != null)
                 {
@@ -616,15 +491,6 @@ namespace NakuruTool.ViewModels
         /// </summary>
         private BeatmapDetailsViewModel _beatmapDetails;
         
-        /// <summary>
-        /// 読み込み状態
-        /// </summary>
-        private bool _isLoading;
-        
-        /// <summary>
-        /// ステータスメッセージ
-        /// </summary>
-        private string _statusMessage;
         
         /// <summary>
         /// 操作パネルのViewModel

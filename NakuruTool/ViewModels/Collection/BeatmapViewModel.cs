@@ -1,4 +1,4 @@
-using NakuruTool.Models;
+using Livet;
 using NakuruTool.Models.Collection;
 
 namespace NakuruTool.ViewModels.Collection
@@ -6,7 +6,7 @@ namespace NakuruTool.ViewModels.Collection
     /// <summary>
     /// View用のビートマップ情報を表現するViewModel
     /// </summary>
-    public class BeatmapViewModel : NotificationBase
+    public class BeatmapViewModel : ViewModel
     {
         #region プロパティ
 
@@ -16,7 +16,7 @@ namespace NakuruTool.ViewModels.Collection
         public string Title
         {
             get { return _title; }
-            set { SetProperty(ref _title, value); }
+            set { RaisePropertyChangedIfSet(ref _title, value); }
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace NakuruTool.ViewModels.Collection
         public string Artist
         {
             get { return _artist; }
-            set { SetProperty(ref _artist, value); }
+            set { RaisePropertyChangedIfSet(ref _artist, value); }
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace NakuruTool.ViewModels.Collection
         public string Version
         {
             get { return _version; }
-            set { SetProperty(ref _version, value); }
+            set { RaisePropertyChangedIfSet(ref _version, value); }
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace NakuruTool.ViewModels.Collection
         public string Creator
         {
             get { return _creator; }
-            set { SetProperty(ref _creator, value); }
+            set { RaisePropertyChangedIfSet(ref _creator, value); }
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace NakuruTool.ViewModels.Collection
         public string Md5Hash
         {
             get { return _md5Hash; }
-            set { SetProperty(ref _md5Hash, value); }
+            set { RaisePropertyChangedIfSet(ref _md5Hash, value); }
         }
         
         #endregion

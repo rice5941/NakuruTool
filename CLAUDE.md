@@ -89,6 +89,29 @@ dotnet run --project CollectionImporter
 - **リアルタイム**: `UpdateSourceTrigger=PropertyChanged`
 - **UI**: 虫眼鏡アイコン + プレースホルダーテキスト
 
+#### プロパティ変更通知システム
+- **統一方式**: 全てのViewModel/ModelでLivet.RaisePropertyChangedIfSet使用
+- **禁止事項**: SetProperty、独自NotificationBase使用禁止（削除済み）
+
+**基底クラス選択基準**:
+- ViewModel: `Livet.ViewModel`継承
+- Model: `Livet.NotificationObject`継承
+
+**標準プロパティパターン**:
+```csharp
+// 基本パターン
+set { RaisePropertyChangedIfSet(ref _field, value); }
+
+// 関連プロパティ通知
+set { RaisePropertyChangedIfSet(ref _field, value, nameof(RelatedProperty)); }
+
+// 追加処理付き
+if (RaisePropertyChangedIfSet(ref _field, value))
+{
+    UpdateRelatedState();
+}
+```
+
 ### 🔧 開発ワークフロー
 
 #### 新機能開発時
@@ -101,9 +124,13 @@ dotnet run --project CollectionImporter
 #### コード品質管理
 - **必須チェック**: 実装完了後にcode-quality-reviewerエージェント実行
 - **エラーハンドリング**: try-catch + Debug.WriteLine + ユーザー向けメッセージ
-- **プロパティ変更通知**: 
-  - MainWindowViewModel: `RaisePropertyChanged()` (Livet.ViewModel継承)
-  - その他ViewModel: `SetProperty()` (NotificationBase継承)
+- **プロパティ変更通知**: 全てのViewModel/ModelでLivet.RaisePropertyChangedIfSet統一使用
+
+#### プロパティ実装時の必須チェック
+1. **基底クラス確認**: ViewModel=`Livet.ViewModel`, Model=`Livet.NotificationObject`
+2. **変更通知方式**: `RaisePropertyChangedIfSet`のみ使用
+3. **関連プロパティ**: 計算プロパティがある場合は`nameof()`で明示的通知
+4. **戻り値活用**: 追加処理が必要な場合はif文で戻り値チェック
 
 ### 📁 ファイル配置規則
 
@@ -118,7 +145,7 @@ NakuruTool/Views/[機能名]/
 #### 新しいViewModel追加時
 ```
 NakuruTool/ViewModels/[機能名]/
-└── [機能名]ViewModel.cs          # NotificationBase継承
+└── [機能名]ViewModel.cs          # Livet.ViewModel継承
 ```
 
 #### 新しいModel追加時
@@ -126,9 +153,24 @@ NakuruTool/ViewModels/[機能名]/
 NakuruTool/Models/[機能名]/
 ├── [機能名]Domain.cs             # データ実体管理
 ├── [機能名]Store.cs              # データ操作
-├── [機能名].cs                   # データクラス
+├── [機能名].cs                   # データクラス（Livet.NotificationObject継承）
 └── [機能名]Type.cs               # 列挙型（必要時）
 ```
+
+### 🏛️ 責務分離原則
+
+#### ViewModel責務分離
+- **MainWindowViewModel**:
+  - 責務: コレクション表示、UI制御、言語設定
+  - 禁止事項: OsuFolderPath管理、重複するステータス処理
+
+- **OperationPanelViewModel**:
+  - 責務: OsuFolderPath管理、コレクション読み込み、操作パネル状態管理
+  - 重要: ConfigManager.OsuFolderPathChangedイベントの唯一の処理場所
+
+#### 重複処理の回避
+- 同一機能を複数ViewModelで実装禁止
+- データフローは単方向: ConfigManager → OperationPanelViewModel → MainWindowViewModel
 
 ### 🎨 UIコンポーネント標準パターン
 
@@ -193,3 +235,9 @@ NakuruTool/Models/[機能名]/
 - **ビルド**: エラー・警告なしで完了
 - **設計準拠**: MVVMパターンとLivet使用規則の遵守
 - **多言語対応**: 最低10言語での対応完了
+
+#### アーキテクチャ準拠チェックリスト
+- [ ] 全プロパティでRaisePropertyChangedIfSet使用
+- [ ] 適切な基底クラス選択（ViewModel/Model）
+- [ ] 責務重複なし
+- [ ] ビルドエラー・警告なし

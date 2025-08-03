@@ -49,13 +49,10 @@ namespace NakuruTool.ViewModels.Collection
             get { return _isLoading; }
             set
             {
-                if (_isLoading == value)
+                if (RaisePropertyChangedIfSet(ref _isLoading, value))
                 {
-                    return;
+                    LoadCollectionsCommand?.RaiseCanExecuteChanged();
                 }
-                _isLoading = value;
-                RaisePropertyChanged();
-                LoadCollectionsCommand?.RaiseCanExecuteChanged();
             }
         }
 
@@ -67,12 +64,7 @@ namespace NakuruTool.ViewModels.Collection
             get { return _statusMessage; }
             set
             {
-                if (_statusMessage == value)
-                {
-                    return;
-                }
-                _statusMessage = value;
-                RaisePropertyChanged();
+                RaisePropertyChangedIfSet(ref _statusMessage, value);
             }
         }
 
@@ -84,14 +76,11 @@ namespace NakuruTool.ViewModels.Collection
             get { return _osuFolderPath; }
             set
             {
-                if (_osuFolderPath == value)
+                if (RaisePropertyChangedIfSet(ref _osuFolderPath, value))
                 {
-                    return;
+                    LoadCollectionsCommand?.RaiseCanExecuteChanged();
+                    UpdateStatusMessage();
                 }
-                _osuFolderPath = value;
-                RaisePropertyChanged();
-                LoadCollectionsCommand?.RaiseCanExecuteChanged();
-                UpdateStatusMessage();
             }
         }
 

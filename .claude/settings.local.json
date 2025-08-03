@@ -4,7 +4,7 @@
   },
   "permissions": {
     "allow": [
-      "Bash(start \"\" \"bin\\Debug\\net6.0-windows\\NakuruTool.exe\")"
+      "Bash(del \"Models\\NotificationBase.cs\")"
     ],
     "deny": []
   },

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using NakuruTool.Models;
+using Livet;
 using NakuruTool.Models.Collection;
 
 namespace NakuruTool.ViewModels.Collection
@@ -8,7 +8,7 @@ namespace NakuruTool.ViewModels.Collection
     /// <summary>
     /// View用のコレクション情報を表現するViewModel
     /// </summary>
-    public class CollectionViewModel : NotificationBase
+    public class CollectionViewModel : ViewModel
     {
         #region プロパティ
 
@@ -18,7 +18,7 @@ namespace NakuruTool.ViewModels.Collection
         public string Name
         {
             get { return _name; }
-            set { SetProperty(ref _name, value); }
+            set { RaisePropertyChangedIfSet(ref _name, value); }
         }
 
         /// <summary>
@@ -27,13 +27,7 @@ namespace NakuruTool.ViewModels.Collection
         public List<BeatmapViewModel> Beatmaps
         {
             get { return _beatmaps; }
-            set
-            {
-                if (SetProperty(ref _beatmaps, value))
-                {
-                    RaisePropertyChanged(nameof(BeatmapCount));
-                }
-            }
+            set { RaisePropertyChangedIfSet(ref _beatmaps, value, nameof(BeatmapCount)); }
         }
 
         /// <summary>

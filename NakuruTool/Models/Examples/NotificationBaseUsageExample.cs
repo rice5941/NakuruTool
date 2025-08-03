@@ -1,3 +1,4 @@
+/*
 using System;
 using System.Collections.ObjectModel;
 using NakuruTool.Models;
@@ -7,6 +8,11 @@ namespace NakuruTool.Models.Examples
     /// <summary>
     /// NotificationBaseクラスの使用例を示すサンプルクラス
     /// 様々なSetPropertyメソッドの活用方法を実演します
+    /// 
+    /// 注意: このクラスは参考用のサンプルコードです。
+    /// 変更前後処理（onChanging, onChanged）が必要な場合のパターンを示しています。
+    /// Livet.RaisePropertyChangedIfSetでは変更前後処理がサポートされていないため、
+    /// そのような処理が必要な場合は独自のSetPropertyメソッドを検討してください。
     /// </summary>
     public class NotificationBaseUsageExample : NotificationBase
     {
@@ -228,3 +234,4 @@ namespace NakuruTool.Models.Examples
         #endregion
     }
 }
+*/

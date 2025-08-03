@@ -4,14 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Livet;
 using Livet.Commands;
-using NakuruTool.Models;
 
 namespace NakuruTool.ViewModels.Collection
 {
     /// <summary>
     /// ビートマップ詳細表示のViewModel
     /// </summary>
-    public class BeatmapDetailsViewModel : NotificationBase
+    public class BeatmapDetailsViewModel : ViewModel
     {
         #region コンストラクタ
         
@@ -40,7 +39,7 @@ namespace NakuruTool.ViewModels.Collection
         public ObservableCollection<BeatmapViewModel> Beatmaps
         {
             get { return _beatmaps; }
-            set { SetProperty(ref _beatmaps, value); }
+            set { RaisePropertyChangedIfSet(ref _beatmaps, value); }
         }
 
         /// <summary>
@@ -51,7 +50,7 @@ namespace NakuruTool.ViewModels.Collection
             get { return _allBeatmaps; }
             set
             {
-                if (SetProperty(ref _allBeatmaps, value))
+                if (RaisePropertyChangedIfSet(ref _allBeatmaps, value))
                 {
                     ApplyBeatmapFilter();
                 }
@@ -66,7 +65,7 @@ namespace NakuruTool.ViewModels.Collection
             get { return _filteredBeatmaps; }
             set
             {
-                if (SetProperty(ref _filteredBeatmaps, value))
+                if (RaisePropertyChangedIfSet(ref _filteredBeatmaps, value))
                 {
                     UpdatePaging();
                 }
@@ -81,7 +80,7 @@ namespace NakuruTool.ViewModels.Collection
             get { return _beatmapFilterText; }
             set
             {
-                if (SetProperty(ref _beatmapFilterText, value))
+                if (RaisePropertyChangedIfSet(ref _beatmapFilterText, value))
                 {
                     ApplyBeatmapFilter();
                 }
@@ -96,7 +95,7 @@ namespace NakuruTool.ViewModels.Collection
             get { return _currentPage; }
             set
             {
-                if (SetProperty(ref _currentPage, value))
+                if (RaisePropertyChangedIfSet(ref _currentPage, value))
                 {
                     UpdatePagedBeatmaps();
                     UpdatePagingInfo();
@@ -112,7 +111,7 @@ namespace NakuruTool.ViewModels.Collection
             get { return _itemsPerPage; }
             set
             {
-                if (SetProperty(ref _itemsPerPage, value))
+                if (RaisePropertyChangedIfSet(ref _itemsPerPage, value))
                 {
                     UpdatePaging();
                 }
@@ -125,7 +124,7 @@ namespace NakuruTool.ViewModels.Collection
         public int TotalPages
         {
             get { return _totalPages; }
-            set { SetProperty(ref _totalPages, value); }
+            set { RaisePropertyChangedIfSet(ref _totalPages, value); }
         }
 
         /// <summary>
@@ -134,7 +133,7 @@ namespace NakuruTool.ViewModels.Collection
         public string PagingInfo
         {
             get { return _pagingInfo; }
-            set { SetProperty(ref _pagingInfo, value); }
+            set { RaisePropertyChangedIfSet(ref _pagingInfo, value); }
         }
 
         /// <summary>

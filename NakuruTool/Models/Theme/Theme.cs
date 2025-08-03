@@ -1,5 +1,5 @@
 using System;
-using NakuruTool.Models;
+using Livet;
 
 namespace NakuruTool.Models.Theme
 {
@@ -7,7 +7,7 @@ namespace NakuruTool.Models.Theme
     /// テーマ設定を表現するデータクラス
     /// プロパティ変更通知機能を提供し、UIとのデータバインディングをサポートします
     /// </summary>
-    public class Theme : NotificationBase
+    public class Theme : NotificationObject
     {
         #region コンストラクタ
 
@@ -40,7 +40,7 @@ namespace NakuruTool.Models.Theme
         public ThemeType CurrentThemeType
         {
             get { return _themeType; }
-            set { SetProperty(ref _themeType, value, new string[] { nameof(ThemeName), nameof(ThemeResourceUri) }); }
+            set { RaisePropertyChangedIfSet(ref _themeType, value, new[] { nameof(ThemeName), nameof(ThemeResourceUri) }); }
         }
 
 
